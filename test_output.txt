@@ -1,0 +1,136 @@
+ID: tuition
+==================================================
+    REF_DATE     GEO           DGUID                                     Field of study              UOM  ...   VALUE STATUS  SYMBOL TERMINATED  DECIMALS
+0  2015/2016  Canada  2021A000011124                              Total, field of study  Current dollars  ...  6201.0    NaN     NaN        NaN         0
+1  2015/2016  Canada  2021A000011124                                          Education  Current dollars  ...  4514.0    NaN     NaN        NaN         0
+2  2015/2016  Canada  2021A000011124  Visual and performing arts, and communications...  Current dollars  ...  5464.0    NaN     NaN        NaN         0
+3  2015/2016  Canada  2021A000011124                                         Humanities  Current dollars  ...  5346.0    NaN     NaN        NaN         0
+4  2015/2016  Canada  2021A000011124  Social and behavioural sciences, and legal stu...  Current dollars  ...  5424.0    NaN     NaN        NaN         0
+
+[5 rows x 15 columns]
+Index(['REF_DATE', 'GEO', 'DGUID', 'Field of study', 'UOM', 'UOM_ID',
+       'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE', 'VALUE', 'STATUS',
+       'SYMBOL', 'TERMINATED', 'DECIMALS'],
+      dtype='str')
+REF_DATE              str
+GEO                   str
+DGUID                 str
+Field of study        str
+UOM                   str
+UOM_ID              int64
+SCALAR_FACTOR         str
+SCALAR_ID           int64
+VECTOR                str
+COORDINATE        float64
+VALUE             float64
+STATUS                str
+SYMBOL            float64
+TERMINATED        float64
+DECIMALS            int64
+dtype: object
+ID: earnings
+==================================================
+   REF_DATE     GEO       DGUID         Educational qualification         Field of study  ...     VALUE STATUS SYMBOL TERMINATED DECIMALS
+0      2015  Canada  2021A11124  Total, educational qualification  Total, field of study  ...  462170.0    NaN    NaN        NaN        0
+1      2015  Canada  2021A11124  Total, educational qualification  Total, field of study  ...   39530.0    NaN    NaN        NaN        0
+2      2015  Canada  2021A11124  Total, educational qualification  Total, field of study  ...  143650.0    NaN    NaN        NaN        0
+3      2015  Canada  2021A11124  Total, educational qualification  Total, field of study  ...  279000.0    NaN    NaN        NaN        0
+4      2015  Canada  2021A11124  Total, educational qualification  Total, field of study  ...  217200.0    NaN    NaN        NaN        0
+
+[5 rows x 21 columns]
+Index(['REF_DATE', 'GEO', 'DGUID', 'Educational qualification',
+       'Field of study', 'Gender', 'Age group', 'Status of student in Canada',
+       'Characteristics after graduation', 'Graduate statistics', 'UOM',
+       'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE', 'VALUE',
+       'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS'],
+      dtype='str')
+REF_DATE                              int64
+GEO                                     str
+DGUID                                   str
+Educational qualification               str
+Field of study                          str
+Gender                                  str
+Age group                               str
+Status of student in Canada             str
+Characteristics after graduation        str
+Graduate statistics                     str
+UOM                                     str
+UOM_ID                                int64
+SCALAR_FACTOR                           str
+SCALAR_ID                             int64
+VECTOR                                  str
+COORDINATE                              str
+VALUE                               float64
+STATUS                               object
+SYMBOL                              float64
+TERMINATED                          float64
+DECIMALS                              int64
+dtype: object
+ID: debt
+==================================================
+   REF_DATE     GEO           DGUID Level of study                                Type of debt source  ...    VALUE STATUS  SYMBOL TERMINATED  DECIMALS
+0      2015  Canada  2016A000011124        College  Graduates who owed money for their education t...  ...     49.0    NaN     NaN        NaN         0
+1      2015  Canada  2016A000011124        College  Graduates who owed money for their education t...  ...     20.0    NaN     NaN        NaN         0
+2      2015  Canada  2016A000011124        College  Graduates who owed money for their education t...  ...  15300.0      A     NaN        NaN         0
+3      2015  Canada  2016A000011124        College  Graduates who owed money for their education t...  ...     31.0    NaN     NaN        NaN         0
+4      2015  Canada  2016A000011124        College  Graduates who owed money for their education t...  ...  13500.0      A     NaN        NaN         0
+
+[5 rows x 17 columns]
+Index(['REF_DATE', 'GEO', 'DGUID', 'Level of study', 'Type of debt source',
+       'Statistics', 'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR',
+       'COORDINATE', 'VALUE', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS'],
+      dtype='str')
+REF_DATE                 int64
+GEO                        str
+DGUID                      str
+Level of study             str
+Type of debt source        str
+Statistics                 str
+UOM                        str
+UOM_ID                   int64
+SCALAR_FACTOR              str
+SCALAR_ID                int64
+VECTOR                     str
+COORDINATE                 str
+VALUE                  float64
+STATUS                     str
+SYMBOL                 float64
+TERMINATED             float64
+DECIMALS                 int64
+dtype: object
+ID: enrollments
+==================================================
+    REF_DATE     GEO           DGUID         Institution type         Program type  ...      VALUE STATUS SYMBOL TERMINATED DECIMALS
+0  2015/2016  Canada  2021A000011124  Total, institution type  Total, program type  ...  2053746.0    NaN    NaN        NaN        0
+1  2015/2016  Canada  2021A000011124  Total, institution type  Total, program type  ...   894546.0    NaN    NaN        NaN        0
+2  2015/2016  Canada  2021A000011124  Total, institution type  Total, program type  ...  1154271.0    NaN    NaN        NaN        0
+3  2015/2016  Canada  2021A000011124  Total, institution type  Total, program type  ...     4929.0    NaN    NaN        NaN        0
+4  2015/2016  Canada  2021A000011124  Total, institution type  Total, program type  ...  1553604.0    NaN    NaN        NaN        0
+
+[5 rows x 20 columns]
+Index(['REF_DATE', 'GEO', 'DGUID', 'Institution type', 'Program type',
+       'Credential type', 'Field of study', 'Registration status', 'Gender',
+       'UOM', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE',
+       'VALUE', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS'],
+      dtype='str')
+REF_DATE                   str
+GEO                        str
+DGUID                      str
+Institution type           str
+Program type               str
+Credential type            str
+Field of study             str
+Registration status        str
+Gender                     str
+UOM                        str
+UOM_ID                   int64
+SCALAR_FACTOR              str
+SCALAR_ID                int64
+VECTOR                     str
+COORDINATE                 str
+VALUE                  float64
+STATUS                  object
+SYMBOL                 float64
+TERMINATED             float64
+DECIMALS                 int64
+dtype: object

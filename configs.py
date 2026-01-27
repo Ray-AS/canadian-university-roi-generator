@@ -5,7 +5,7 @@ STAT_CAN_TABLES: dict[str, str] = {
     "enrollments": "37-10-0011-01",
 }
 
-YEARS_TO_KEEP = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+YEARS_TO_KEEP = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
 
 FIELDS = [
     "education",
@@ -29,6 +29,23 @@ FIELDS = [
     "personal_services",
     "other",
 ]
+
+ENROLLMENTS_FIELD_MAP = {
+    "Education": "education",
+    "Visual and performing arts, and communications technologies": "visual_arts",
+    "Humanities": "humanities",
+    "Social and behavioural sciences and law": "social_sciences",
+    "Business, management and public administration": "business",
+    "Physical and life sciences and technologies": "physical_sciences",
+    "Mathematics, computer and information sciences": "comp_sci",
+    "Architecture, engineering and related technologies": "engineering",
+    "Agriculture, natural resources and conservation": "agriculture",
+    "Health and related fields": "health",
+    "Personal, protective and transportation services": "personal_services",
+    "Other field of study": "other",
+    "Personal improvement and leisure": "other",
+    "Unclassified, field of study": "other",
+}
 
 TUITION_FIELD_MAP = {
     "Education": "education",

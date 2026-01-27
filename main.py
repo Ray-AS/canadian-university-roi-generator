@@ -1,3 +1,4 @@
+from typing import Optional
 import pandas as pd
 import zipfile
 from pathlib import Path
@@ -69,42 +70,123 @@ def fetch_all_statcan_tables(sources: dict[str, str]) -> dict[str, pd.DataFrame]
     return data
 
 
-def map_to_fields(table_data: pd.DataFrame, field_maps: list[str]):
-    pass
+def filter_statcan_data(
+    df: pd.DataFrame,
+    years_include: list[str] | list[int],
+    locations_include: list[str] = ["Canada"],
+    level_of_study_include: Optional[list[str]] = None,
+    field_of_study_exclude: Optional[list[str]] = None,
+):
+    subset = df[
+        (df["REF_DATE"].isin(years_include)) & (df["GEO"].isin(locations_include))
+    ]
+
+    if field_of_study_exclude is not None:
+        subset = subset[(~df["Field of study"].isin(field_of_study_exclude))]
+    if level_of_study_include is not None:
+        subset = subset[(df["Level of study"].isin(level_of_study_include))]
+
+    return subset
+
+
+def get_debt_subset(df: pd.DataFrame, subset: str):
+    return df[df["Statistics"].str.contains(subset)]
+
+
+def rename_debt_subset(df: pd.DataFrame, unit: str):
+    return df.rename(
+        columns={
+            "Graduates who owed money for their education to any source (government or non-government)": f"{unit} in debt",
+            "Graduates who owed money for their education to government-sponsored student loans": f"Govt loans {unit}",
+            "Graduates who owed money for their education to non-government sources": f"Private loans {unit}",
+        }
+    )
+
+
+def pivot_debt_by_source(df: pd.DataFrame):
+    return df.pivot_table(
+        index="REF_DATE", columns="Type of debt source", values="VALUE"
+    )
 
 
 def main():
-    data = fetch_all_statcan_tables(STAT_CAN_TABLES)
-    # for table, table_id in STAT_CAN_TABLES.items():
-    #     print(f"\nTABLE: {table} | ID: {table_id}")
-    #     print("=" * 50)
-    #     df = fetch_statcan_table(table_id)
-    #     print(f"Shape: {df.shape}")
-
-    #     # Show all columns without truncation
-    #     pd.set_option("display.max_columns", None)
-    #     pd.set_option("display.width", None)
-    #     print(df.head().to_string())
+    # data = fetch_all_statcan_tables(STAT_CAN_TABLES)
 
     # for table_id, table_data in data.items():
     #     print(f"ID: {table_id}")
     #     print("=" * 50)
+    #     print(table_data.head(5))
+    #     print(table_data.columns)
+    #     print(table_data.dtypes)
 
-    #     print(f"Shape: {table_data.shape}")
-    #     pd.set_option("display.max_columns", None)
-    #     pd.set_option("display.width", None)
-    #     print(table_data.head().to_string())
-    for table_id, table_data in data.items():
-        print(f"ID: {table_id}")
-        print("=" * 50)
-        print(table_data.head(5))
-        print(table_data.columns)
-        print(table_data.dtypes)
+    #     subset = table_data[table_data["GEO"] == "Canada"]
+    #     subset.groupby("REF_DATE")["VALUE"].mean().plot()
+    #     plt.savefig(f"figures/{table_id}.png", dpi=300)
+    #     plt.close()
 
-        subset = table_data[table_data["GEO"] == "Canada"]
-        subset.groupby("REF_DATE")["VALUE"].mean().plot()
-        plt.savefig(f"figures/{table_id}.png", dpi=300)
-        plt.close()
+    # ISOLATE RELEVANT DATA FOR TUITION
+    tuition_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
+        ["2022/2023", "2023/2024", "2024/2025"],
+        field_of_study_exclude=["Total, field of study"],
+    )
+
+    print(tuition_data[["REF_DATE", "Field of study", "VALUE"]])
+
+    # ISOLATE RELEVANT DATA FOR EARNINGS
+    earnings_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["earnings"]),
+        [2015, 2016, 2017],
+        field_of_study_exclude=["Total, field of study"],
+    )
+
+    earnings_by_major = (
+        earnings_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
+        .mean()
+        .reset_index()
+    )
+
+    print(earnings_by_major)
+
+    # ISOLATE RELEVANT DATA FOR DEBT
+    debt_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["debt"]),
+        [2015, 2020],
+        level_of_study_include=["Bachelor's"],
+    )
+
+    percent_debt = get_debt_subset(
+        debt_data, "Percentage of graduates who owed debt to the source at graduation"
+    )
+
+    dollar_debt = get_debt_subset(
+        debt_data, "Average debt owed to the source at graduation"
+    )
+
+    percent_summary = pivot_debt_by_source(percent_debt)
+    dollar_summary = pivot_debt_by_source(dollar_debt)
+
+    percent_summary = rename_debt_subset(percent_summary, "%")
+    dollar_summary = rename_debt_subset(dollar_summary, "$")
+
+    combined = pd.concat([percent_summary, dollar_summary], axis=1)
+
+    print(combined)
+
+    # ISOLATE RELEVANT DATA FOR ENROLLMENTS
+    enrollment_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["enrollments"]),
+        ["2022/2023", "2023/2024", "2024/2025"],
+        field_of_study_exclude=["Total, field of study"],
+    )
+
+    enrollment_summary = (
+        enrollment_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
+        .sum()
+        .reset_index()
+    )
+
+    print(enrollment_summary)
 
 
 if __name__ == "__main__":
