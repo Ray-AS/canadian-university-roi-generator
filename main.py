@@ -6,7 +6,7 @@ from pathlib import Path
 import requests
 from configs import (
     CPI_ADJUSTMENT_2018_TO_2024,
-    CPI_ADJUSTMENT_2018_TO_2025,
+    CPI_ADJUSTMENT_2020_TO_2024,
     EARNINGS_FIELD_MAP,
     ENROLLMENTS_FIELD_MAP,
     STAT_CAN_TABLES,
@@ -164,11 +164,11 @@ def prepare_earnings_data(df: pd.DataFrame) -> pd.DataFrame:
         result["earnings_2018"] * CPI_ADJUSTMENT_2018_TO_2024
     )
 
-    return result[["REF_DATE", "field", "earnings_2018", "earnings_2025_adjusted"]]
+    return result[["REF_DATE", "field", "earnings_2018", "earnings_2024_adjusted"]]
 
 
 def prepare_enrollment_data(df: pd.DataFrame) -> pd.DataFrame:
-    normalized = normalize_field_names(df, TUITION_FIELD_MAP)
+    normalized = normalize_field_names(df, ENROLLMENTS_FIELD_MAP)
 
     latest_year = max(normalized["REF_DATE"].unique(), key=lambda s: int(s[:4]))
     latest = normalized[normalized["REF_DATE"] == latest_year]
@@ -182,36 +182,66 @@ def prepare_enrollment_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def prepare_debt_data(df: pd.DataFrame) -> pd.DataFrame:
-    pass
+    latest_year = df["REF_DATE"].max()
+    latest = df[df["REF_DATE"] == latest_year]
+
+    latest = latest[
+        (
+            latest["Statistics"].str.contains(
+                "Average debt owed to the source at graduation"
+            )
+        )
+    ]
+
+    latest = latest[
+        latest["Type of debt source"]
+        == "Graduates who owed money for their education to any source (government or non-government)"
+    ]
+
+    latest = latest[["REF_DATE", "VALUE"]].rename(columns={"VALUE": "debt_2018"})
+
+    latest["debt_2024"] = latest["debt_2018"] * CPI_ADJUSTMENT_2020_TO_2024
+
+    return latest
+
+
+def estimate_debt_by_fields(avg_debt: float, df_tuition: pd.DataFrame) -> pd.DataFrame:
+    df = df_tuition.copy()
+
+    avg_tuition = df["tuition"].mean()
+    df["estimated_debt"] = (df["tuition"] / avg_tuition) * avg_debt
+
+    return df
 
 
 def main():
-    # # ISOLATE RELEVANT DATA FOR TUITION
-    # tuition_data = filter_statcan_data(
-    #     fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
-    #     ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"],
-    #     field_of_study_exclude=["Total, field of study"],
-    # )
+    tuition_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
+        ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"],
+        field_of_study_exclude=["Total, field of study"],
+    )
 
-    # prepared_tuition_data = prepare_tuition_data(tuition_data)
+    prepared_tuition_data = prepare_tuition_data(tuition_data)
 
-    # print(prepared_tuition_data)
+    print("-----------------------TUITION-----------------------")
+    print(prepared_tuition_data)
 
-    # earnings_data = filter_statcan_data(
-    #     fetch_statcan_table(STAT_CAN_TABLES["earnings"]),
-    #     [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
-    #     field_of_study_exclude=["Total, field of study"],
-    # )
+    earnings_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["earnings"]),
+        [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+        field_of_study_exclude=["Total, field of study"],
+    )
 
-    # earnings_by_major = (
-    #     earnings_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
-    #     .mean()
-    #     .reset_index()
-    # )
+    earnings_by_major = (
+        earnings_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
+        .mean()
+        .reset_index()
+    )
 
-    # prepared_earnings_data = prepare_earnings_data(earnings_by_major)
+    prepared_earnings_data = prepare_earnings_data(earnings_by_major)
 
-    # print(prepared_earnings_data)
+    print("-----------------------EARNINGS-----------------------")
+    print(prepared_earnings_data)
 
     enrollment_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["enrollments"]),
@@ -227,77 +257,22 @@ def main():
 
     prepared_enrollment_data = prepare_enrollment_data(enrollment_summary)
 
+    print("-----------------------ENROLLMENT-----------------------")
     print(prepared_enrollment_data)
 
-    # # print(tuition_data[["REF_DATE", "Field of study", "VALUE"]])
+    debt_data = filter_statcan_data(
+        fetch_statcan_table(STAT_CAN_TABLES["debt"]),
+        [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+        level_of_study_include=["Bachelor's"],
+    )
 
-    # # ISOLATE RELEVANT DATA FOR EARNINGS
-    # earnings_data = filter_statcan_data(
-    #     fetch_statcan_table(STAT_CAN_TABLES["earnings"]),
-    #     [2015, 2016, 2017],
-    #     field_of_study_exclude=["Total, field of study"],
-    # )
+    prepared_debt_data = prepare_debt_data(debt_data)
+    debts_by_field = estimate_debt_by_fields(
+        prepared_debt_data["debt_2024"].iloc[0], prepared_tuition_data
+    )
 
-    # earnings_by_major = (
-    #     earnings_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
-    #     .mean()
-    #     .reset_index()
-    # )
-
-    # # print(earnings_by_major)
-
-    # # ISOLATE RELEVANT DATA FOR DEBT
-    # debt_data = filter_statcan_data(
-    #     fetch_statcan_table(STAT_CAN_TABLES["debt"]),
-    #     [2015, 2020],
-    #     level_of_study_include=["Bachelor's"],
-    # )
-
-    # percent_debt = get_debt_subset(
-    #     debt_data, "Percentage of graduates who owed debt to the source at graduation"
-    # )
-
-    # dollar_debt = get_debt_subset(
-    #     debt_data, "Average debt owed to the source at graduation"
-    # )
-
-    # percent_summary = pivot_debt_by_source(percent_debt)
-    # dollar_summary = pivot_debt_by_source(dollar_debt)
-
-    # percent_summary = rename_debt_subset(percent_summary, "%")
-    # dollar_summary = rename_debt_subset(dollar_summary, "$")
-
-    # combined = pd.concat([percent_summary, dollar_summary], axis=1)
-
-    # # print(combined)
-
-    # # ISOLATE RELEVANT DATA FOR ENROLLMENTS
-    # enrollment_data = filter_statcan_data(
-    #     fetch_statcan_table(STAT_CAN_TABLES["enrollments"]),
-    #     ["2022/2023", "2023/2024", "2024/2025"],
-    #     field_of_study_exclude=["Total, field of study"],
-    # )
-
-    # enrollment_summary = (
-    #     enrollment_data.groupby(["REF_DATE", "Field of study"])["VALUE"]
-    #     .sum()
-    #     .reset_index()
-    # )
-
-    # # print(enrollment_summary)
-
-    # tuition = normalize_field_names(
-    #     tuition_data[["REF_DATE", "Field of study", "VALUE"]], TUITION_FIELD_MAP
-    # )
-
-    # earnings = normalize_field_names(earnings_by_major, EARNINGS_FIELD_MAP)
-
-    # enrollment = normalize_field_names(enrollment_summary, ENROLLMENTS_FIELD_MAP)
-
-    # print(tuition)
-    # print(earnings)
-    # print(enrollment)
-    # print(combined)
+    print("-----------------------DEBT-----------------------")
+    print(debts_by_field)
 
 
 if __name__ == "__main__":
