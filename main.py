@@ -4,7 +4,13 @@ import zipfile
 from pathlib import Path
 
 import requests
-from configs import STAT_CAN_TABLES, YEARS_TO_KEEP
+from configs import (
+    EARNINGS_FIELD_MAP,
+    ENROLLMENTS_FIELD_MAP,
+    STAT_CAN_TABLES,
+    TUITION_FIELD_MAP,
+    YEARS_TO_KEEP,
+)
 import matplotlib.pyplot as plt
 
 
@@ -82,9 +88,9 @@ def filter_statcan_data(
     ]
 
     if field_of_study_exclude is not None:
-        subset = subset[(~df["Field of study"].isin(field_of_study_exclude))]
+        subset = subset[(~subset["Field of study"].isin(field_of_study_exclude))]
     if level_of_study_include is not None:
-        subset = subset[(df["Level of study"].isin(level_of_study_include))]
+        subset = subset[(subset["Level of study"].isin(level_of_study_include))]
 
     return subset
 
@@ -109,6 +115,22 @@ def pivot_debt_by_source(df: pd.DataFrame):
     )
 
 
+def normalize_field_names(
+    df: pd.DataFrame, field_map: dict, field_col: str = "Field of study"
+) -> pd.DataFrame:
+    df = df.copy()
+
+    df[field_col] = df[field_col].str.replace(r"\s*\[\d+\]$", "", regex=True)
+
+    df["field"] = df[field_col].map(field_map)
+
+    unmapped = df[df["field"].isna()][field_col].unique()
+    if len(unmapped) > 0:
+        print(f"Unmapped fields: {unmapped}")
+
+    return df.dropna(subset=["field"])
+
+
 def main():
     # data = fetch_all_statcan_tables(STAT_CAN_TABLES)
 
@@ -131,7 +153,7 @@ def main():
         field_of_study_exclude=["Total, field of study"],
     )
 
-    print(tuition_data[["REF_DATE", "Field of study", "VALUE"]])
+    # print(tuition_data[["REF_DATE", "Field of study", "VALUE"]])
 
     # ISOLATE RELEVANT DATA FOR EARNINGS
     earnings_data = filter_statcan_data(
@@ -146,7 +168,7 @@ def main():
         .reset_index()
     )
 
-    print(earnings_by_major)
+    # print(earnings_by_major)
 
     # ISOLATE RELEVANT DATA FOR DEBT
     debt_data = filter_statcan_data(
@@ -171,7 +193,7 @@ def main():
 
     combined = pd.concat([percent_summary, dollar_summary], axis=1)
 
-    print(combined)
+    # print(combined)
 
     # ISOLATE RELEVANT DATA FOR ENROLLMENTS
     enrollment_data = filter_statcan_data(
@@ -186,7 +208,20 @@ def main():
         .reset_index()
     )
 
-    print(enrollment_summary)
+    # print(enrollment_summary)
+
+    tuition = normalize_field_names(
+        tuition_data[["REF_DATE", "Field of study", "VALUE"]], TUITION_FIELD_MAP
+    )
+
+    earnings = normalize_field_names(earnings_by_major, EARNINGS_FIELD_MAP)
+
+    enrollment = normalize_field_names(enrollment_summary, ENROLLMENTS_FIELD_MAP)
+
+    print(tuition)
+    print(earnings)
+    print(enrollment)
+    print(combined)
 
 
 if __name__ == "__main__":
