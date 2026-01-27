@@ -43,17 +43,36 @@ def fetch_statcan_table(table_id: str, path: Path = Path("data/raw")) -> pd.Data
     return df
 
 
-def main():
-    for table, table_id in STAT_CAN_TABLES.items():
-        print(f"\nTABLE: {table} | ID: {table_id}")
-        print("=" * 50)
-        df = fetch_statcan_table(table_id)
-        print(f"Shape: {df.shape}")
+def fetch_all_statcan_tables(sources: dict[str, str]) -> dict[str, pd.DataFrame]:
+    data = {}
 
-        # Show all columns without truncation
-        pd.set_option("display.max_columns", None)
-        pd.set_option("display.width", None)
-        print(df.head().to_string())
+    for name, table_id in sources.items():
+        data[name] = fetch_statcan_table(table_id)
+
+    return data
+
+
+def main():
+    data = fetch_all_statcan_tables(STAT_CAN_TABLES)
+    # for table, table_id in STAT_CAN_TABLES.items():
+    #     print(f"\nTABLE: {table} | ID: {table_id}")
+    #     print("=" * 50)
+    #     df = fetch_statcan_table(table_id)
+    #     print(f"Shape: {df.shape}")
+
+    #     # Show all columns without truncation
+    #     pd.set_option("display.max_columns", None)
+    #     pd.set_option("display.width", None)
+    #     print(df.head().to_string())
+
+    # for table_id, table_data in data.items():
+    #     print(f"ID: {table_id}")
+    #     print("=" * 50)
+
+    #     print(f"Shape: {table_data.shape}")
+    #     pd.set_option("display.max_columns", None)
+    #     pd.set_option("display.width", None)
+    #     print(table_data.head().to_string())
 
 
 if __name__ == "__main__":
