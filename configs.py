@@ -1,3 +1,6 @@
+CPI_ADJUSTMENT_2018_TO_2024 = 1.21
+CPI_ADJUSTMENT_2018_TO_2025 = 1.24
+
 STAT_CAN_TABLES: dict[str, str] = {
     "tuition": "37-10-0003-01",
     "earnings": "37-10-0280-01",

@@ -134,3 +134,205 @@ SYMBOL                 float64
 TERMINATED             float64
 DECIMALS                 int64
 dtype: object
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+Unmapped fields: <StringArray>
+['Agricultural and veterinary sciences/services/operations and related fields',
+                                           'Architecture and related services',
+                               'Architecture, engineering, and related trades',
+                           'Area, ethnic, cultural, gender, and group studies',
+                                          'Biological and biomedical sciences',
+                                    'Biological and physical sciences [30.01]',
+                'Business, management, marketing and related support services',
+                              'Communication, journalism and related programs',
+                'Communications technologies/technicians and support services',
+                      'Computer and information sciences and support services',
+                                                         'Construction trades',
+                              'Culinary, entertainment, and personal services',
+                                                                 'Engineering',
+                    'Engineering/engineering-related technologies/technicians',
+                                     'English language and literature/letters',
+                                 'Family and consumer sciences/human sciences',
+                                      'French language and literature/letters',
+                                     'Health professions and related programs',
+                            'Health professions residency/fellowship programs',
+                              'Historic preservation and conservation [30.12]',
+                                                                     'History',
+              'Indigenous and foreign languages, literatures, and linguistics',
+                                          'Interdisciplinary humanities [30A]',
+      'Interdisciplinary mathematics, computer and information sciences [30D]',
+                     'Interdisciplinary social and behavioural sciences [30B]',
+                                               'Legal professions and studies',
+                   'Liberal arts and sciences, general studies and humanities',
+                                                             'Library science',
+                                                  'Mathematics and statistics',
+                                'Mechanic and repair technologies/technicians',
+                                       'Medical residency/fellowship programs',
+                            'Military science, leadership and operational art',
+                                  'Military technologies and applied sciences',
+                  'Multidisciplinary/interdisciplinary studies, other [30.99]',
+                                          'Natural resources and conservation',
+                    'Other interdisciplinary physical and life sciences [30C]',
+                        'Parks, recreation, leisure, fitness, and kinesiology',
+                                            'Philosophy and religious studies',
+                                                           'Physical sciences',
+                                                        'Precision production',
+                                                                  'Psychology',
+                        'Public administration and social service professions',
+                                            'Science technologies/technicians',
+                                            'Security and protective services',
+                                                             'Social sciences',
+                                            'Theology and religious vocations',
+                                         'Transportation and materials moving',
+                                                  'Visual and performing arts']
+Length: 48, dtype: str
+=======
+TUITION
+=======   
+       REF_DATE                                     Field of study    VALUE              field
+1521  2022/2023                                          Education   5191.0          education
+1522  2022/2023  Visual and performing arts, and communications...   6152.0        visual_arts
+1523  2022/2023                                         Humanities   5914.0         humanities
+1524  2022/2023  Social and behavioural sciences, and legal stu...   5885.0    social_sciences
+1525  2022/2023                                                Law  13200.0                law
+1526  2022/2023     Business, management and public administration   7297.0           business
+1527  2022/2023        Physical and life sciences and technologies   6005.0  physical_sciences
+1528  2022/2023     Mathematics, computer and information sciences   7074.0           comp_sci
+1529  2022/2023                                        Engineering   8618.0        engineering
+1530  2022/2023                                       Architecture   6743.0       architecture
+1531  2022/2023    Agriculture, natural resources and conservation   6033.0        agriculture
+1532  2022/2023                                          Dentistry  24041.0          dentistry
+1533  2022/2023                                           Medicine  15190.0           medicine
+1534  2022/2023                                            Nursing   6022.0            nursing
+1535  2022/2023                                           Pharmacy  12207.0           pharmacy
+1536  2022/2023                                Veterinary medicine  14977.0         veterinary
+1537  2022/2023                                          Optometry  10340.0          optometry
+1538  2022/2023        Other health, parks, recreation and fitness   6221.0             health
+1539  2022/2023   Personal, protective and transportation services   6007.0  personal_services
+1761  2023/2024                                          Education   5403.0          education
+1762  2023/2024  Visual and performing arts, and communications...   6346.0        visual_arts
+1763  2023/2024                                         Humanities   6127.0         humanities
+1764  2023/2024  Social and behavioural sciences, and legal stu...   6078.0    social_sciences
+1765  2023/2024                                                Law  13809.0                law
+1766  2023/2024     Business, management and public administration   7690.0           business
+1767  2023/2024        Physical and life sciences and technologies   6205.0  physical_sciences
+1768  2023/2024     Mathematics, computer and information sciences   7407.0           comp_sci
+1769  2023/2024                                        Engineering   8992.0        engineering
+1770  2023/2024                                       Architecture   6990.0       architecture
+1771  2023/2024    Agriculture, natural resources and conservation   6416.0        agriculture
+1772  2023/2024                                          Dentistry  24891.0          dentistry
+1773  2023/2024                                           Medicine  15632.0           medicine
+1774  2023/2024                                            Nursing   6233.0            nursing
+1775  2023/2024                                           Pharmacy  13508.0           pharmacy
+1776  2023/2024                                Veterinary medicine  15526.0         veterinary
+1777  2023/2024                                          Optometry  10674.0          optometry
+1778  2023/2024        Other health, parks, recreation and fitness   6435.0             health
+1779  2023/2024   Personal, protective and transportation services   6204.0  personal_services
+2001  2024/2025                                          Education   5553.0          education
+2002  2024/2025  Visual and performing arts, and communications...   6417.0        visual_arts
+2003  2024/2025                                         Humanities   6147.0         humanities
+2004  2024/2025  Social and behavioural sciences, and legal stu...   6209.0    social_sciences
+2005  2024/2025                                                Law  14508.0                law
+2006  2024/2025     Business, management and public administration   8298.0           business
+2007  2024/2025        Physical and life sciences and technologies   6382.0  physical_sciences
+2008  2024/2025     Mathematics, computer and information sciences   7611.0           comp_sci
+2009  2024/2025                                        Engineering   9310.0        engineering
+2010  2024/2025                                       Architecture   7217.0       architecture
+2011  2024/2025    Agriculture, natural resources and conservation   6680.0        agriculture
+2012  2024/2025                                          Dentistry  26423.0          dentistry
+2013  2024/2025                                           Medicine  15945.0           medicine
+2014  2024/2025                                            Nursing   6440.0            nursing
+2015  2024/2025                                           Pharmacy  13897.0           pharmacy
+2016  2024/2025                                Veterinary medicine  10292.0         veterinary
+2017  2024/2025                                          Optometry  11082.0          optometry
+2018  2024/2025        Other health, parks, recreation and fitness   6607.0             health
+2019  2024/2025   Personal, protective and transportation services   6503.0  personal_services
+2020  2024/2025                              Other, field of study   5866.0              other
+   
+
+========
+EARNINGS
+========    
+     REF_DATE                                     Field of study         VALUE              field
+1        2015    Agriculture, natural resources and conservation  19382.422387        agriculture
+7        2015     Business, management and public administration  26536.001544           business
+14       2015                                          Education  22400.009058          education
+15       2015                                          Education  22400.009058          education
+21       2015                          Health and related fields  27525.913725             health
+26       2015                                         Humanities  15062.751174         humanities
+35       2015     Mathematics, computer and information sciences  23762.371968           comp_sci
+42       2015                       Other instructional programs  15851.116883              other
+45       2015   Personal, protective and transportation services  21227.233547  personal_services
+47       2015        Physical and life sciences and technologies  16924.550265  physical_sciences
+54       2015            Social and behavioural sciences and law  22629.909502    social_sciences
+59       2015  Visual and performing arts, and communications...  11642.103813        visual_arts
+61       2016    Agriculture, natural resources and conservation  19325.085041        agriculture
+67       2016     Business, management and public administration  27519.923547           business
+74       2016                                          Education  22530.088889          education
+75       2016                                          Education  22530.088889          education
+81       2016                          Health and related fields  28088.203364             health
+86       2016                                         Humanities  15604.234063         humanities
+95       2016     Mathematics, computer and information sciences  25242.849696           comp_sci
+101      2016                       Other instructional programs  14924.701754              other
+104      2016   Personal, protective and transportation services  21251.629213  personal_services
+106      2016        Physical and life sciences and technologies  17168.422897  physical_sciences
+113      2016            Social and behavioural sciences and law  23652.622827    social_sciences
+118      2016  Visual and performing arts, and communications...  13071.093750        visual_arts
+120      2017    Agriculture, natural resources and conservation  19352.779939        agriculture
+126      2017     Business, management and public administration  27596.012294           business
+133      2017                                          Education  22557.755923          education
+134      2017                                          Education  22557.755923          education
+140      2017                          Health and related fields  27309.273222             health
+145      2017                                         Humanities  15637.914692         humanities
+154      2017     Mathematics, computer and information sciences  26196.222129           comp_sci
+161      2017                       Other instructional programs  15183.051724              other
+164      2017   Personal, protective and transportation services  21286.247216  personal_services
+166      2017        Physical and life sciences and technologies  18243.515716  physical_sciences
+173      2017            Social and behavioural sciences and law  23927.571802    social_sciences
+178      2017  Visual and performing arts, and communications...  13579.079007        visual_arts
+ 
+ 
+===========
+ENROLLMENTS
+===========  
+     REF_DATE                                     Field of study       VALUE              field
+0   2022/2023    Agriculture, natural resources and conservation   1269399.0        agriculture
+1   2022/2023  Architecture, engineering and related technolo...   7624509.0        engineering
+2   2022/2023     Business, management and public administration  13809957.0           business
+3   2022/2023                                          Education   3224532.0          education
+4   2022/2023                          Health and related fields   8864262.0             health
+5   2022/2023                                         Humanities   7429557.0         humanities
+6   2022/2023     Mathematics, computer and information sciences   4614831.0           comp_sci
+7   2022/2023                               Other field of study   1523784.0              other
+8   2022/2023                   Personal improvement and leisure    512781.0              other
+9   2022/2023   Personal, protective and transportation services   1504119.0  personal_services
+10  2022/2023        Physical and life sciences and technologies   5953119.0  physical_sciences
+11  2022/2023            Social and behavioural sciences and law   9679029.0    social_sciences
+12  2022/2023                       Unclassified, field of study   2167119.0              other
+13  2022/2023  Visual and performing arts, and communications...   2651721.0        visual_arts
+14  2023/2024    Agriculture, natural resources and conservation   1291170.0        agriculture
+15  2023/2024  Architecture, engineering and related technolo...   8023170.0        engineering
+16  2023/2024     Business, management and public administration  15262449.0           business
+17  2023/2024                                          Education   3291024.0          education
+18  2023/2024                          Health and related fields   9199782.0             health
+19  2023/2024                                         Humanities   7677327.0         humanities
+20  2023/2024     Mathematics, computer and information sciences   5267283.0           comp_sci
+21  2023/2024                               Other field of study   1604604.0              other
+22  2023/2024                   Personal improvement and leisure    601875.0              other
+23  2023/2024   Personal, protective and transportation services   1553295.0  personal_services
+24  2023/2024        Physical and life sciences and technologies   6194085.0  physical_sciences
+25  2023/2024            Social and behavioural sciences and law   9961917.0    social_sciences
+26  2023/2024                       Unclassified, field of study   2259354.0              other
+27  2023/2024  Visual and performing arts, and communications...   2774625.0        visual_arts
+
+
+====
+DEBT
+====
+Type of debt source  % in debt  Govt loans %  Private loans %  $ in debt  Govt loans $  Private loans $
+REF_DATE                                                                                               
+2015                      54.0          43.0             24.0    28000.0       23000.0          21000.0
+2020                      51.0          41.0             21.0    30600.0       24000.0          27900.0
