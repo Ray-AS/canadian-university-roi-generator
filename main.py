@@ -241,6 +241,32 @@ def merge_dfs(
     )
 
 
+def calculate_basic_roi(df: pd.DataFrame) -> pd.DataFrame:
+    df["total_tuition"] = df["tuition"] * 4
+    df["debt_to_income"] = df["estimated_debt"] / df["earnings_2024_adjusted"]
+    pass
+
+    # Payback years (assuming 10% of post-tax income, 25% tax rate)
+    post_tax = df["earnings_2024_adjusted"] * 0.75
+    annual_payment = post_tax * 0.10
+    df["payback_years"] = df["estimated_debt"] / annual_payment
+
+    # 5-year ROI (assume 3% annual salary growth)
+    df["earnings_5yr"] = df["earnings_2024_adjusted"] * (
+        1.03**3
+    )  # 3 more years of growth
+    avg_earnings = (df["earnings_2024_adjusted"] + df["earnings_5yr"]) / 2
+    cumulative_5yr = avg_earnings * 5
+    df["roi_5yr_w_debt"] = (cumulative_5yr - df["estimated_debt"]) / df[
+        "estimated_debt"
+    ]
+    df["roi_5yr_w_tuition"] = (cumulative_5yr - df["total_tuition"]) / df[
+        "total_tuition"
+    ]
+
+    return df
+
+
 def main():
     tuition_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
@@ -289,6 +315,15 @@ def main():
         prepared_debt_data["debt_2024"].iloc[0], prepared_tuition_data
     )
 
+    merged = merge_dfs(
+        prepared_tuition_data,
+        prepared_earnings_data,
+        prepared_enrollment_data,
+        debts_by_field,
+    )
+
+    merged_w_roi = calculate_basic_roi(merged)
+
     print("-----------------------TUITION-----------------------")
     print(prepared_tuition_data)
     print("-----------------------EARNINGS-----------------------")
@@ -297,14 +332,7 @@ def main():
     print(prepared_enrollment_data)
     print("-----------------------DEBT-----------------------")
     print(debts_by_field)
-    print(
-        merge_dfs(
-            prepared_tuition_data,
-            prepared_earnings_data,
-            prepared_enrollment_data,
-            debts_by_field,
-        )
-    )
+    print(merged_w_roi)
 
 
 if __name__ == "__main__":

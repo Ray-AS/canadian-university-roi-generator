@@ -336,3 +336,36 @@ Type of debt source  % in debt  Govt loans %  Private loans %  $ in debt  Govt l
 REF_DATE                                                                                               
 2015                      54.0          43.0             24.0    28000.0       23000.0          21000.0
 2020                      51.0          41.0             21.0    30600.0       24000.0          27900.0
+
+
+
+
+
+
+
+
+                field  tuition  ...  estimated_debt  enrollment
+0         agriculture   6680.0  ...    24871.001724   1291170.0
+1            business   8298.0  ...    30895.145554  15262449.0
+2            comp_sci   7611.0  ...    28337.304509   5267283.0
+3           education   5553.0  ...    20674.950984   3291024.0
+4              health   6607.0  ...    24599.207843   9199782.0
+5          humanities   6147.0  ...    22886.534071   7677327.0
+6               other   5866.0  ...    21840.313789   4465833.0
+7   personal_services   6503.0  ...    24211.994642   1553295.0
+8   physical_sciences   6382.0  ...    23761.486976   6194085.0
+9     social_sciences   6209.0  ...    23117.372710   9961917.0
+10        visual_arts   6417.0  ...    23891.799111   2774625.0
+
+                field  earnings_2024_adjusted
+0         agriculture            24344.199914
+1            business            34046.946672
+2            comp_sci            32247.720636
+3           education            28245.009709
+4              health            33421.120549
+5          humanities            18753.988351
+6               other            17449.406109
+7   personal_services            25161.558178
+8   physical_sciences            21500.898107
+9     social_sciences            28984.427967
+10        visual_arts            15480.560618
