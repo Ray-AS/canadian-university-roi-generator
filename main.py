@@ -117,6 +117,12 @@ def pivot_debt_by_source(df: pd.DataFrame):
     )
 
 
+def normalize_ref_date(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    df["REF_DATE"] = df["REF_DATE"].astype(str).str[:4].astype(int)
+    return df
+
+
 def normalize_field_names(
     df: pd.DataFrame, field_map: dict, field_col: str = "Field of study"
 ) -> pd.DataFrame:
@@ -126,17 +132,19 @@ def normalize_field_names(
 
     df["field"] = df[field_col].map(field_map)
 
-    unmapped = df[df["field"].isna()][field_col].unique()
-    if len(unmapped) > 0:
-        print(f"Unmapped fields: {unmapped}")
+    # unmapped = df[df["field"].isna()][field_col].unique()
+    # if len(unmapped) > 0:
+    #     print(f"Unmapped fields: {unmapped}")
 
     return df.dropna(subset=["field"])
 
 
 def prepare_tuition_data(df: pd.DataFrame) -> pd.DataFrame:
     normalized = normalize_field_names(df, TUITION_FIELD_MAP)
+    normalized = normalize_ref_date(normalized)
 
-    latest_year = max(normalized["REF_DATE"].unique(), key=lambda s: int(s[:4]))
+    # latest_year = max(normalized["REF_DATE"].unique(), key=lambda s: int(s[:4]))
+    latest_year = normalized["REF_DATE"].max()
     latest = normalized[normalized["REF_DATE"] == latest_year]
 
     return (
@@ -149,6 +157,7 @@ def prepare_tuition_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def prepare_earnings_data(df: pd.DataFrame) -> pd.DataFrame:
     normalized = normalize_field_names(df, EARNINGS_FIELD_MAP)
+    normalized = normalize_ref_date(normalized)
 
     latest_year = normalized["REF_DATE"].max()
     latest = normalized[normalized["REF_DATE"] == latest_year]
@@ -169,8 +178,10 @@ def prepare_earnings_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def prepare_enrollment_data(df: pd.DataFrame) -> pd.DataFrame:
     normalized = normalize_field_names(df, ENROLLMENTS_FIELD_MAP)
+    normalized = normalize_ref_date(normalized)
 
-    latest_year = max(normalized["REF_DATE"].unique(), key=lambda s: int(s[:4]))
+    # latest_year = max(normalized["REF_DATE"].unique(), key=lambda s: int(s[:4]))
+    latest_year = normalized["REF_DATE"].max()
     latest = normalized[normalized["REF_DATE"] == latest_year]
 
     return (
@@ -182,6 +193,8 @@ def prepare_enrollment_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def prepare_debt_data(df: pd.DataFrame) -> pd.DataFrame:
+    df = normalize_ref_date(df)
+
     latest_year = df["REF_DATE"].max()
     latest = df[df["REF_DATE"] == latest_year]
 
@@ -214,6 +227,20 @@ def estimate_debt_by_fields(avg_debt: float, df_tuition: pd.DataFrame) -> pd.Dat
     return df
 
 
+def merge_dfs(
+    df_tuition: pd.DataFrame,
+    df_earnings: pd.DataFrame,
+    df_enrollment: pd.DataFrame,
+    df_debt: pd.DataFrame,
+) -> pd.DataFrame:
+    return (
+        df_tuition.drop(columns="REF_DATE")
+        .merge(df_earnings.drop(columns="REF_DATE"), on="field", how="inner")
+        .merge(df_debt.drop(columns=["REF_DATE", "tuition"]), on="field", how="left")
+        .merge(df_enrollment.drop(columns="REF_DATE"), on="field", how="left")
+    )
+
+
 def main():
     tuition_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
@@ -222,9 +249,6 @@ def main():
     )
 
     prepared_tuition_data = prepare_tuition_data(tuition_data)
-
-    print("-----------------------TUITION-----------------------")
-    print(prepared_tuition_data)
 
     earnings_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["earnings"]),
@@ -240,9 +264,6 @@ def main():
 
     prepared_earnings_data = prepare_earnings_data(earnings_by_major)
 
-    print("-----------------------EARNINGS-----------------------")
-    print(prepared_earnings_data)
-
     enrollment_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["enrollments"]),
         ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"],
@@ -257,9 +278,6 @@ def main():
 
     prepared_enrollment_data = prepare_enrollment_data(enrollment_summary)
 
-    print("-----------------------ENROLLMENT-----------------------")
-    print(prepared_enrollment_data)
-
     debt_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["debt"]),
         [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
@@ -271,8 +289,22 @@ def main():
         prepared_debt_data["debt_2024"].iloc[0], prepared_tuition_data
     )
 
+    print("-----------------------TUITION-----------------------")
+    print(prepared_tuition_data)
+    print("-----------------------EARNINGS-----------------------")
+    print(prepared_earnings_data)
+    print("-----------------------ENROLLMENT-----------------------")
+    print(prepared_enrollment_data)
     print("-----------------------DEBT-----------------------")
     print(debts_by_field)
+    print(
+        merge_dfs(
+            prepared_tuition_data,
+            prepared_earnings_data,
+            prepared_enrollment_data,
+            debts_by_field,
+        )
+    )
 
 
 if __name__ == "__main__":
