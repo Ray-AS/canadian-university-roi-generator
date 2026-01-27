@@ -3,7 +3,8 @@ import zipfile
 from pathlib import Path
 
 import requests
-from configs import STAT_CAN_TABLES
+from configs import STAT_CAN_TABLES, YEARS_TO_KEEP
+import matplotlib.pyplot as plt
 
 
 def fetch_statcan_table(table_id: str, path: Path = Path("data/raw")) -> pd.DataFrame:
@@ -38,9 +39,25 @@ def fetch_statcan_table(table_id: str, path: Path = Path("data/raw")) -> pd.Data
             raise Exception(f"No data CSV found. Contents: {z.namelist()}")
 
         with z.open(csv_files[0]) as f:
-            df = pd.read_csv(f)
+            # df = pd.read_csv(f)
+            chunks = pd.read_csv(f, chunksize=10000)
+            df_filtered = pd.concat(
+                [
+                    chunk[
+                        chunk["REF_DATE"]
+                        .astype(str)
+                        .str[
+                            :4
+                        ]  # Take only the first 4 characters (the year) (Tuition and enrollments use e.g. "2015/2016"; read instead as "2015")
+                        .isin([str(y) for y in YEARS_TO_KEEP])
+                    ]
+                    for chunk in chunks
+                    if "REF_DATE" in chunk.columns
+                ],
+                ignore_index=True,
+            )
 
-    return df
+    return df_filtered
 
 
 def fetch_all_statcan_tables(sources: dict[str, str]) -> dict[str, pd.DataFrame]:
@@ -50,6 +67,10 @@ def fetch_all_statcan_tables(sources: dict[str, str]) -> dict[str, pd.DataFrame]
         data[name] = fetch_statcan_table(table_id)
 
     return data
+
+
+def map_to_fields(table_data: pd.DataFrame, field_maps: list[str]):
+    pass
 
 
 def main():
@@ -73,6 +94,17 @@ def main():
     #     pd.set_option("display.max_columns", None)
     #     pd.set_option("display.width", None)
     #     print(table_data.head().to_string())
+    for table_id, table_data in data.items():
+        print(f"ID: {table_id}")
+        print("=" * 50)
+        print(table_data.head(5))
+        print(table_data.columns)
+        print(table_data.dtypes)
+
+        subset = table_data[table_data["GEO"] == "Canada"]
+        subset.groupby("REF_DATE")["VALUE"].mean().plot()
+        plt.savefig(f"figures/{table_id}.png", dpi=300)
+        plt.close()
 
 
 if __name__ == "__main__":

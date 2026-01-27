@@ -5,6 +5,8 @@ STAT_CAN_TABLES: dict[str, str] = {
     "enrollments": "37-10-0011-01",
 }
 
+YEARS_TO_KEEP = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
 FIELDS = [
     "education",
     "visual_arts",
