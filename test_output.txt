@@ -369,3 +369,8 @@ REF_DATE
 8   physical_sciences            21500.898107
 9     social_sciences            28984.427967
 10        visual_arts            15480.560618
+
+['field', 'tuition', 'earnings_2018', 'earnings_2024_adjusted',
+       'estimated_debt', 'enrollment', 'total_tuition', 'debt_to_income',
+       'payback_years', 'earnings_5yr', 'roi_5yr_w_debt', 'roi_5yr_w_tuition',
+       'earnings_per_dollar_tuition']
