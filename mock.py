@@ -73,7 +73,6 @@ def make_mock_merged_df() -> pd.DataFrame:
 
     df = pd.DataFrame(data)
 
-    # Derived fields (same logic as your pipeline)
     YEARS_OF_TUITION = 4
     TAX_RATE = 0.25
     INCOME_TO_PAYOFF = 0.10
