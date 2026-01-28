@@ -18,7 +18,7 @@ from configs import (
     YEARS_TO_KEEP,
 )
 from mock import make_mock_merged_df
-from plots import plot_tuition_vs_earnings
+from plots import *
 
 
 def fetch_statcan_table(table_id: str, path: Path = Path("data/raw")) -> pd.DataFrame:
@@ -349,6 +349,7 @@ def main():
     # print(merged_w_roi.columns)
 
     plot_tuition_vs_earnings(make_mock_merged_df())
+    plot_debt_to_income(make_mock_merged_df())
 
 
 if __name__ == "__main__":
