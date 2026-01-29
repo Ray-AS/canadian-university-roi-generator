@@ -1,13 +1,13 @@
 import pandas as pd
 
-from configs import (
+from services.configs import (
     CPI_ADJUSTMENT_2018_TO_2024,
     CPI_ADJUSTMENT_2020_TO_2024,
     EARNINGS_FIELD_MAP,
     ENROLLMENTS_FIELD_MAP,
     TUITION_FIELD_MAP,
 )
-from normalization import normalize_field_names, normalize_ref_date
+from services.normalization import normalize_field_names, normalize_ref_date
 
 
 def prepare_tuition_data(df: pd.DataFrame) -> pd.DataFrame:

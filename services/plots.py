@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import pandas as pd
 
-from configs import DEFAULT_PATH
+from services.configs import DEFAULT_PATH
 
 
 def plot_tuition_vs_earnings(df: pd.DataFrame, path: Path = DEFAULT_PATH):

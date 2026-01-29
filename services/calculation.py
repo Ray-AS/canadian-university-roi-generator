@@ -1,6 +1,11 @@
 import pandas as pd
 
-from configs import INCOME_TO_PAYOFF, RATE_OF_EARNING_GROWTH, TAX_RATE, YEARS_OF_TUITION
+from services.configs import (
+    INCOME_TO_PAYOFF,
+    RATE_OF_EARNING_GROWTH,
+    TAX_RATE,
+    YEARS_OF_TUITION,
+)
 
 
 def calculate_roi_by_field(df: pd.DataFrame) -> pd.DataFrame:

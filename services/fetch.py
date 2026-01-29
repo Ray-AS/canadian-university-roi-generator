@@ -4,7 +4,7 @@ import zipfile
 import pandas as pd
 import requests
 
-from configs import YEARS_TO_KEEP
+from services.configs import YEARS_TO_KEEP
 
 
 def fetch_statcan_table(table_id: str, path: Path = Path("data/raw")) -> pd.DataFrame:

@@ -5,10 +5,10 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from calculation import calculate_roi_by_field
-from normalization import normalize_ref_date
-from plots import generate_all_plots
-from report import generate_report
+from services.calculation import calculate_roi_by_field
+from services.normalization import normalize_ref_date
+from services.plots import generate_all_plots
+from services.report import generate_report
 
 
 @pytest.fixture

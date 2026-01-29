@@ -1,11 +1,11 @@
-from calculation import calculate_roi_by_field
-from configs import (
+from services.calculation import calculate_roi_by_field
+from services.configs import (
     STAT_CAN_TABLES,
 )
-from fetch import fetch_statcan_table
-from plots import generate_all_plots
-from normalization import filter_statcan_data
-from preparation import (
+from services.fetch import fetch_statcan_table
+from services.plots import generate_all_plots
+from services.normalization import filter_statcan_data
+from services.preparation import (
     estimate_debt_by_fields,
     merge_dfs,
     prepare_debt_data,
@@ -13,7 +13,7 @@ from preparation import (
     prepare_enrollment_data,
     prepare_tuition_data,
 )
-from report import generate_report
+from services.report import generate_report
 
 # from mock import make_mock_merged_df
 
