@@ -74,16 +74,17 @@ def plot_debt_to_income(df: pd.DataFrame, path: Path = DEFAULT_PATH):
         range(len(df_sorted)), df_sorted["debt_to_income"], alpha=0.7, edgecolor="black"
     )
 
-    ax.axvline(x=1.0, color="red", linestyle="--", linewidth=2, alpha=0.6)
+    ax.axvline(x=1.0, color="red", linestyle="--", linewidth=1.5, alpha=0.6)
 
     ax.set_yticks(range(len(df_sorted)))
     ax.set_yticklabels(
         [field.replace("_", " ").title() for field in df_sorted["field"]]
     )
     ax.set_xlabel("Debt-to-Income Ratio")
-    ax.set_title(
-        "Student Debt Burden by Field of Study\nEstimated Debt / Median Earnings (After 2 Years)"
-    )
+    ax.set_title("Student Debt Burden by Field of Study")
+    # ax.set_title(
+    #     "Student Debt Burden by Field of Study\nEstimated Debt / Median Earnings (After 2 Years)"
+    # )
 
     for i, (idx, row) in enumerate(df_sorted.iterrows()):
         value = row["debt_to_income"]
@@ -115,17 +116,18 @@ def plot_payback_years(df: pd.DataFrame, path: Path = DEFAULT_PATH):
         edgecolor="black",
     )
 
-    ax.axvline(x=10, color="green", linestyle="--", linewidth=1, alpha=0.4)
-    ax.axvline(x=20, color="red", linestyle="--", linewidth=1, alpha=0.4)
+    ax.axvline(x=10, color="green", linestyle="--", linewidth=1.5, alpha=0.4)
+    ax.axvline(x=20, color="red", linestyle="--", linewidth=1.5, alpha=0.4)
 
     ax.set_yticks(range(len(df_sorted)))
     ax.set_yticklabels(
         [field.replace("_", " ").title() for field in df_sorted["field"]]
     )
     ax.set_xlabel("Years to Pay Off Student Debt")
-    ax.set_title(
-        "How Long Will It Take to Pay Off Student Debt?\nAssuming 10% of Post-Tax Income Goes to Debt Repayment"
-    )
+    ax.set_title("How Long Will It Take to Pay Off Student Debt?")
+    # ax.set_title(
+    #     "How Long Will It Take to Pay Off Student Debt?\nAssuming 10% of Post-Tax Income Goes to Debt Repayment"
+    # )
 
     # Add value labels on bars
     for i, (idx, row) in enumerate(df_sorted.iterrows()):
@@ -141,3 +143,85 @@ def plot_payback_years(df: pd.DataFrame, path: Path = DEFAULT_PATH):
     plt.savefig(path / "payback_years.png", dpi=300, bbox_inches="tight")
     plt.close()
     print(f"Plot Payback Years saved: {path / 'payback_years.png'}")
+
+
+def plot_roi_by_field(df: pd.DataFrame, output_path: Path):
+    df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False)
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+
+    x = range(len(df_sorted))
+    width = 0.35
+
+    ax.barh(
+        [i - width / 2 for i in x],
+        df_sorted["roi_5yr_w_tuition"],
+        width,
+        label="ROI (Tuition)",
+        alpha=0.7,
+        edgecolor="black",
+    )
+
+    ax.barh(
+        [i + width / 2 for i in x],
+        df_sorted["roi_5yr_w_debt"],
+        width,
+        label="ROI (Debt)",
+        alpha=0.7,
+        edgecolor="black",
+        color="red",
+    )
+
+    # Calculate and add average ROI line
+    avg_roi_tuition = df["roi_5yr_w_tuition"].mean()
+    avg_roi_debt = df["roi_5yr_w_debt"].mean()
+    ax.axvline(
+        x=avg_roi_tuition,
+        color="blue",
+        linestyle="--",
+        linewidth=1.5,
+        alpha=0.5,
+        label=f"Avg ROI (Tuition): {avg_roi_tuition:.2f}",
+    )
+    ax.axvline(
+        x=avg_roi_debt,
+        color="red",
+        linestyle="--",
+        linewidth=1.5,
+        alpha=0.5,
+        label=f"Avg ROI (Debt): {avg_roi_debt:.2f}",
+    )
+
+    ax.set_yticks(x)
+    ax.set_yticklabels(
+        [field.replace("_", " ").title() for field in df_sorted["field"]]
+    )
+    ax.set_xlabel("5-Year Return on Investment (ROI)")
+    ax.set_title("5-Year ROI by Field of Study")
+    # ax.set_title(
+    #     "5-Year ROI by Field of Study\nComparing Investment Based on Tuition vs. Debt"
+    # )
+    ax.legend(loc="upper right")
+    ax.grid(axis="x", alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig(output_path / "roi_by_field.png", dpi=300, bbox_inches="tight")
+    plt.close()
+    print(
+        f"Plot return on investment by field saved: {output_path / 'roi_by_field.png'}"
+    )
+
+
+def generate_all_plots(df: pd.DataFrame, output_path: Path = Path("figures")):
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    print("Generating plots...")
+    print("=" * 60)
+
+    plot_tuition_vs_earnings(df, output_path)
+    plot_roi_by_field(df, output_path)
+    plot_debt_to_income(df, output_path)
+    plot_debt_to_income(df, output_path)
+
+    print("=" * 60)
+    print(f"All plots saved to: {output_path.absolute()}\n")

@@ -3,7 +3,7 @@ from configs import (
     STAT_CAN_TABLES,
 )
 from fetch import fetch_statcan_table
-from plots import plot_debt_to_income, plot_payback_years, plot_tuition_vs_earnings
+from plots import generate_all_plots
 from normalization import filter_statcan_data
 from preparation import (
     estimate_debt_by_fields,
@@ -85,9 +85,7 @@ def main():
     print(merged_w_roi)
     print(merged_w_roi.columns)
 
-    plot_tuition_vs_earnings(merged_w_roi)
-    plot_debt_to_income(merged_w_roi)
-    plot_payback_years(merged_w_roi)
+    generate_all_plots(merged_w_roi)
 
 
 if __name__ == "__main__":
