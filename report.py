@@ -29,9 +29,9 @@ def generate_summary(df: pd.DataFrame) -> str:
 This report includes the following data visualizations (see `figures/` directory):
 
 1. **Tuition vs Earnings Chart** - Shows relationship between tuition costs and earnings (after 2 years)
-3. **Debt-to-Income Ratio Rankings** - Visualizes repayment burden across fields
-4. **Payback Period by Field** - Shows years required to repay debt at 10% of post-tax income
-6. **ROI Comparison by Field** - Side-by-side comparison of ROI of all fields
+2. **ROI Comparison by Field** - Side-by-side comparison of ROI of all fields
+3. **Payback Period by Field** - Shows years required to repay debt at 10% of post-tax income
+4. **Debt-to-Income Ratio Rankings** - Visualizes repayment burden across fields
 
 ## Key Findings
 
@@ -114,14 +114,12 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     return rankings
 
 
-def generate_summary_table(df: pd.DataFrame) -> str:
-    """Generate a markdown table with all key metrics"""
-
+def generate_table(df: pd.DataFrame) -> str:
     # Sort by ROI for table presentation
     df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False).copy()
 
     table = """
-## Summary Data Table
+## Data Table
 
 | Field | Annual Tuition | Total Debt | Earnings (Yr 2) | ROI (Tuition) | ROI (Debt) | Debt-to-Income | Payback Years | Earnings/$ Tuition | Enrollment |
 |-------|----------------|------------|-----------------|---------------|------------|----------------|---------------|-------------------|------------|
@@ -135,6 +133,65 @@ def generate_summary_table(df: pd.DataFrame) -> str:
 ---
 """
     return table
+
+
+def generate_visualizations(df: pd.DataFrame) -> str:
+    visualization = """
+## Data Visualizations
+
+This report is accompanied by four key visualizations located in the `figures/` directory. Each visualization highlights different aspects of the ROI analysis:
+
+### 1. Tuition vs Earnings Chart
+**File:** `figures/tuition_vs_earnings.png`
+
+Shows the relationship between total 4-year tuition costs and median earnings 2 years after graduation:
+- Whether higher tuition translates to higher earnings
+- Outliers in either direction (high cost/low earnings or low cost/high earnings)
+
+![tuition_vs_earnings](../figures/tuition_vs_earnings.png)
+
+**Key Insight:** Some of the lowest-tuition fields produce competitive earnings, suggesting strong value for students.
+
+---
+
+### 2. ROI Comparison by Field
+**File:** `figures/roi_by_field.png`
+
+Side-by-side comparison showing 5-year ROI calculated two ways:
+- Based on total tuition paid
+- Based on estimated debt incurred
+
+Includes average ROI lines for both calculations. The gap between the two bars shows how debt burden affects returns.
+
+![roi_by_field](../figures/roi_by_field.png)
+
+**Key Insight:** Fields where debt-based ROI is significantly lower than tuition-based ROI indicate students are over-borrowing relative to costs.
+
+---
+
+### 3. Payback Period by Field
+**File:** `figures/payback_years.png`
+
+Shows estimated years to repay student debt assuming 25% tax rate on income and 10% of post-tax income goes to debt repayment. Converts abstract debt figures into time, which is more intuitive for students and families.
+
+![payback_years](../figures/payback_years.png)
+
+**Key Insight:** Fields requiring 15+ years for debt repayment may discourage students despite long-term career potential.
+
+---
+
+### 4. Debt-to-Income Ratio Rankings
+**File:** `figures/debt_to_income_ratio.png`
+
+Horizontal bar chart showing estimated debt as a multiple of annual earnings. A ratio above 1.0 means debt exceeds annual income. Lower is better.
+
+![debt_to_income](../figures/debt_to_income_ratio.png)
+
+**Key Insight:** Fields with ratios above 1.2x may face significant repayment stress and warrant financial aid attention.
+
+---
+"""
+    return visualization
 
 
 def generate_analysis(df: pd.DataFrame) -> str:
@@ -332,6 +389,8 @@ def generate_report(df: pd.DataFrame, path: Path = Path("reports")) -> None:
     report = ""
     report += generate_summary(df)
     report += generate_field_rankings(df)
+    report += generate_table(df)
+    report += generate_visualizations(df)
     report += generate_analysis(df)
     report += generate_methodology(df)
     report += generate_policy_recommendations(df)
