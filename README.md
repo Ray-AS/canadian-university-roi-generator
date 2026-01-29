@@ -30,10 +30,10 @@ A data analysis tool that calculates return on investment (ROI) for Canadian uni
 
 ### Visualizations
 
-1. **Tuition vs Earnings Chart** - Cost vs outcomes
-2. **ROI Comparison by Field** - Tuition vs debt-based ROI
-3. **Payback Period by Field** - Time to debt freedom
-4. **Debt-to-Income Rankings** - Repayment burden by field
+1. **Tuition vs Earnings Chart** (cost vs outcomes)
+2. **ROI Comparison by Field** (tuition vs debt-based ROI)
+3. **Payback Period by Field** (time to debt freedom)
+4. **Debt-to-Income Rankings** (repayment burden by field)
 
 ### Report
 
