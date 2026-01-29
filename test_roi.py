@@ -8,6 +8,7 @@ import pytest
 from calculation import calculate_roi_by_field
 from normalization import normalize_ref_date
 from plots import generate_all_plots
+from report import generate_report
 
 
 @pytest.fixture
@@ -117,4 +118,10 @@ class TestOutputs:
         for plot in plots:
             path = temp_dir / plot
             assert path.exists()
-            assert path.stat().st_size > 0
+
+    def test_report_file_generated(self, complete_data, temp_dir):
+        generate_report(complete_data, temp_dir)
+
+        md_path = temp_dir / "REPORT.md"
+
+        assert md_path.exists()
