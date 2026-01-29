@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from calculation import calculate_roi_by_field
 from normalization import normalize_ref_date
 
 
@@ -59,3 +60,25 @@ class TestCalculations:
         result = normalize_ref_date(df)
         assert result["REF_DATE"].iloc[0] == 2020
         assert result["REF_DATE"].dtype == np.int64
+
+    def test_calculate_roi_adds_required_columns(self, sample_data):
+        result = calculate_roi_by_field(sample_data)
+
+        required = [
+            "roi_5yr_w_tuition",
+            "roi_5yr_w_debt",
+            "debt_to_income",
+            "payback_years",
+            "earnings_per_dollar_tuition",
+        ]
+
+        for col in required:
+            assert col in result.columns
+
+    def test_roi_values_are_positive(self, sample_data):
+        """Test that ROI calculations produce positive values"""
+        result = calculate_roi_by_field(sample_data)
+
+        assert (result["roi_5yr_w_tuition"] > 0).all()
+        assert (result["roi_5yr_w_debt"] > 0).all()
+        assert (result["payback_years"] > 0).all()
