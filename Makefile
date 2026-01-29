@@ -1,2 +1,2 @@
 clean:
-	rm data/raw/*
+	rm data/raw/* figures/*
