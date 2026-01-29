@@ -82,3 +82,23 @@ class TestCalculations:
         assert (result["roi_5yr_w_tuition"] > 0).all()
         assert (result["roi_5yr_w_debt"] > 0).all()
         assert (result["payback_years"] > 0).all()
+
+    def test_known_roi_calculation(self):
+        """Test ROI against manually calculated value"""
+        df = pd.DataFrame(
+            {
+                "field": ["test"],
+                "tuition": [10000],
+                "earnings_2024_adjusted": [50000],
+                "estimated_debt": [40000],
+                "enrollment": [1000000],
+                "total_tuition": [40000],
+            }
+        )
+
+        result = calculate_roi_by_field(df)
+
+        expected = 5.6
+        actual = result["roi_5yr_w_tuition"].iloc[0]
+
+        assert abs(actual - expected) / expected < 0.1
