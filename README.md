@@ -8,7 +8,8 @@ A data analysis tool that calculates return on investment (ROI) for Canadian uni
 
 ## Tools
 
-- **Language:** Python
+- **Languages:**
+  - Python
 - **Libraries:**
   - Pandas
   - Matplotlib
