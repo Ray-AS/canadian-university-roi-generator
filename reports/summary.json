@@ -1,0 +1,48 @@
+{
+    "report_date": "January 29, 2026",
+    "overall_averages": {
+        "avg_annual_tuition": 6431.1,
+        "avg_total_debt": 23606.367508833333,
+        "avg_earnings_year_2": 26218.64307011749,
+        "avg_5yr_roi": 4.334693510972862,
+        "avg_payback_period_years": 12.648780755961194
+    },
+    "best_performing": {
+        "highest_roi": {
+            "field": "education",
+            "roi_5yr": 5.837531745412024,
+            "annual_tuition": 5403.0,
+            "median_earnings": 28245.009708737864
+        },
+        "best_value": {
+            "field": "education",
+            "earnings_per_dollar": 1.3069132754366954,
+            "annual_tuition": 5403.0,
+            "median_earnings": 28245.009708737864
+        },
+        "fastest_payback": {
+            "field": "education",
+            "payback_years": 9.362156080281695,
+            "debt_to_income": 0.7021617060211272
+        }
+    },
+    "areas_of_concern": {
+        "lowest_roi": {
+            "field": "visual_arts",
+            "roi_5yr": 2.1906503290846686,
+            "annual_tuition": 6346.0,
+            "median_earnings": 15480.560618462938
+        },
+        "lowest_value": {
+            "field": "visual_arts",
+            "earnings_per_dollar": 0.6098550511528104,
+            "annual_tuition": 6346.0,
+            "median_earnings": 15480.560618462938
+        },
+        "slowest_payback": {
+            "field": "visual_arts",
+            "payback_years": 20.06300684876133,
+            "debt_to_income": 1.5047255136570998
+        }
+    }
+}

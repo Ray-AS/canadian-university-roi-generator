@@ -1,0 +1,70 @@
+{
+  "areas_requiring_attention": {
+    "high_enrollment_low_roi": [
+      {
+        "field": "humanities",
+        "enrollment": 7677327,
+        "roi_5yr": 3.003486390212572
+      },
+      {
+        "field": "physical_sciences",
+        "enrollment": 6194085,
+        "roi_5yr": 3.5321827147199834
+      }
+    ],
+    "high_debt_burden": [
+      {
+        "field": "visual_arts",
+        "debt_to_income": 1.5047255136570998,
+        "payback_years": 20.06300684876133
+      },
+      {
+        "field": "humanities",
+        "debt_to_income": 1.1992180033556206,
+        "payback_years": 15.989573378074942
+      },
+      {
+        "field": "physical_sciences",
+        "debt_to_income": 1.05932466926783,
+        "payback_years": 14.124328923571063
+      }
+    ]
+  },
+  "best_practices": [
+    {
+      "field": "education",
+      "roi_5yr": 5.837531745412024,
+      "debt_to_income": 0.7021617060211272
+    },
+    {
+      "field": "health",
+      "roi_5yr": 5.793053743510893,
+      "debt_to_income": 0.7067591596663515
+    },
+    {
+      "field": "social_sciences",
+      "roi_5yr": 5.237299994534325,
+      "debt_to_income": 0.7697325701087377
+    }
+  ],
+  "recommendations": {
+    "high_enrollment_low_roi_fields": [
+      "Review tuition pricing structures for these programs",
+      "Enhance career counseling and job placement services",
+      "Consider industry partnerships to improve employment outcomes",
+      "Develop financial literacy programs for students in these fields"
+    ],
+    "high_debt_burden_fields": [
+      "Expand scholarship and grant programs for these fields",
+      "Review whether tuition costs are justified by earnings potential",
+      "Consider capping debt levels for students in these programs"
+    ],
+    "system_wide": [
+      "Transparency: Provide prospective students with clear ROI data before enrollment",
+      "Affordability: Review tuition increases relative to earnings outcomes",
+      "Accountability: Track and publish graduate outcomes by program",
+      "Support: Enhance financial aid for high-social-value, lower-earning fields",
+      "Flexibility: Develop more affordable pathway options (e.g., co-op, apprenticeship models)"
+    ]
+  }
+}

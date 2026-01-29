@@ -1,0 +1,49 @@
+{
+  "data_sources": [
+    "Table 37-10-0003-01: Canadian undergraduate tuition fees by field of study",
+    "Table 37-10-0280-01: Characteristics and median employment income of longitudinal cohorts",
+    "Table 37-10-0011-01: Postsecondary enrolments by field of study",
+    "Table 37-10-0036-01: Student debt from all sources"
+  ],
+  "assumptions": {
+    "inflation_adjustment": {
+      "cpi_2018_to_2024": 1.21,
+      "cpi_2020_to_2024": 1.14
+    },
+    "debt_estimation": {
+      "method": "Proportional to tuition costs",
+      "formula": "(tuition_for_field / avg_tuition) * avg_national_debt",
+      "program_length": "4 years"
+    },
+    "roi_calculation": {
+      "earnings_growth": 0.03,
+      "base_period": "2 years post-graduation",
+      "tuition_roi_formula": "(5yr_cumulative_earnings - total_tuition) / total_tuition",
+      "debt_roi_formula": "(5yr_cumulative_earnings - estimated_debt) / estimated_debt"
+    },
+    "payback_calculation": {
+      "income_to_debt_repayment": 0.1,
+      "tax_rate": 0.25,
+      "interest_rate": 0.0,
+      "formula": "debt / (post_tax_income * repayment_percentage)"
+    },
+    "earnings_per_dollar": {
+      "formula": "median_annual_earnings_year2 / total_4yr_tuition"
+    }
+  },
+  "limitations": [
+    "Earnings data represents median, not mean",
+    "Does not account for regional variation",
+    "Does not distinguish graduate vs undergraduate in some fields",
+    "Does not account for scholarships, grants, or other financial aid",
+    "Does not account for career progression beyond Year 2",
+    "Does not account for job market saturation or demand",
+    "Does not account for individual career choices and performance"
+  ],
+  "data_years": {
+    "tuition": "2023/2024",
+    "earnings": "2018 (inflation-adjusted to 2024)",
+    "enrollment": "2023/2024",
+    "debt": "2020 (inflation-adjusted to 2024)"
+  }
+}

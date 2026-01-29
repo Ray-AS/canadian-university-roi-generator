@@ -1,0 +1,210 @@
+{
+    "by_5yr_roi": [
+        {
+            "rank": 1,
+            "field": "education",
+            "value": 5.837531745412024
+        },
+        {
+            "rank": 2,
+            "field": "health",
+            "value": 5.793053743510893
+        },
+        {
+            "rank": 3,
+            "field": "social_sciences",
+            "value": 5.237299994534325
+        },
+        {
+            "rank": 4,
+            "field": "business",
+            "value": 4.79087813455525
+        },
+        {
+            "rank": 5,
+            "field": "comp_sci",
+            "value": 4.6944170770838785
+        },
+        {
+            "rank": 6,
+            "field": "personal_services",
+            "value": 4.30466958422071
+        },
+        {
+            "rank": 7,
+            "field": "agriculture",
+            "value": 3.9627653963943152
+        },
+        {
+            "rank": 8,
+            "field": "physical_sciences",
+            "value": 3.5321827147199834
+        },
+        {
+            "rank": 9,
+            "field": "humanities",
+            "value": 3.003486390212572
+        },
+        {
+            "rank": 10,
+            "field": "visual_arts",
+            "value": 2.1906503290846686
+        }
+    ],
+    "by_earnings_per_dollar": [
+        {
+            "rank": 1,
+            "field": "education",
+            "value": 1.3069132754366954
+        },
+        {
+            "rank": 2,
+            "field": "health",
+            "value": 1.2984118317412434
+        },
+        {
+            "rank": 3,
+            "field": "social_sciences",
+            "value": 1.1921860796050943
+        },
+        {
+            "rank": 4,
+            "field": "business",
+            "value": 1.1068578241796947
+        },
+        {
+            "rank": 5,
+            "field": "comp_sci",
+            "value": 1.0884204345973227
+        },
+        {
+            "rank": 6,
+            "field": "personal_services",
+            "value": 1.0139248137422052
+        },
+        {
+            "rank": 7,
+            "field": "agriculture",
+            "value": 0.948573874450765
+        },
+        {
+            "rank": 8,
+            "field": "physical_sciences",
+            "value": 0.8662730905120416
+        },
+        {
+            "rank": 9,
+            "field": "humanities",
+            "value": 0.7652190448563185
+        },
+        {
+            "rank": 10,
+            "field": "visual_arts",
+            "value": 0.6098550511528104
+        }
+    ],
+    "by_debt_to_income": [
+        {
+            "rank": 1,
+            "field": "education",
+            "value": 0.7021617060211272
+        },
+        {
+            "rank": 2,
+            "field": "health",
+            "value": 0.7067591596663515
+        },
+        {
+            "rank": 3,
+            "field": "social_sciences",
+            "value": 0.7697325701087377
+        },
+        {
+            "rank": 4,
+            "field": "business",
+            "value": 0.829071661288008
+        },
+        {
+            "rank": 5,
+            "field": "comp_sci",
+            "value": 0.8431157904911928
+        },
+        {
+            "rank": 6,
+            "field": "personal_services",
+            "value": 0.9050616403354041
+        },
+        {
+            "rank": 7,
+            "field": "agriculture",
+            "value": 0.9674148527795239
+        },
+        {
+            "rank": 8,
+            "field": "physical_sciences",
+            "value": 1.05932466926783
+        },
+        {
+            "rank": 9,
+            "field": "humanities",
+            "value": 1.1992180033556206
+        },
+        {
+            "rank": 10,
+            "field": "visual_arts",
+            "value": 1.5047255136570998
+        }
+    ],
+    "by_payback_period": [
+        {
+            "rank": 1,
+            "field": "education",
+            "value": 9.362156080281695
+        },
+        {
+            "rank": 2,
+            "field": "health",
+            "value": 9.423455462218017
+        },
+        {
+            "rank": 3,
+            "field": "social_sciences",
+            "value": 10.263100934783171
+        },
+        {
+            "rank": 4,
+            "field": "business",
+            "value": 11.05428881717344
+        },
+        {
+            "rank": 5,
+            "field": "comp_sci",
+            "value": 11.241543873215905
+        },
+        {
+            "rank": 6,
+            "field": "personal_services",
+            "value": 12.067488537805389
+        },
+        {
+            "rank": 7,
+            "field": "agriculture",
+            "value": 12.898864703726984
+        },
+        {
+            "rank": 8,
+            "field": "physical_sciences",
+            "value": 14.124328923571063
+        },
+        {
+            "rank": 9,
+            "field": "humanities",
+            "value": 15.989573378074942
+        },
+        {
+            "rank": 10,
+            "field": "visual_arts",
+            "value": 20.06300684876133
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "visualizations": [
+        {
+            "name": "Tuition vs Earnings Chart",
+            "filename": "tuition_vs_earnings.png",
+            "description": "Shows the relationship between total 4-year tuition costs and median earnings 2 years after graduation"
+        },
+        {
+            "name": "ROI Comparison by Field",
+            "filename": "roi_by_field.png",
+            "description": "Side-by-side comparison showing 5-year ROI calculated based on tuition and debt"
+        },
+        {
+            "name": "Payback Period by Field",
+            "filename": "payback_years.png",
+            "description": "Estimated years to repay student debt assuming 25% tax rate and 10% of post-tax income to debt repayment"
+        },
+        {
+            "name": "Debt-to-Income Ratio Rankings",
+            "filename": "debt_to_income_ratio.png",
+            "description": "Horizontal bar chart showing estimated debt as a multiple of annual earnings"
+        }
+    ]
+}

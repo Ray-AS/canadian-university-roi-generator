@@ -1,9 +1,10 @@
 from datetime import datetime
+import json
 from pathlib import Path
 import pandas as pd
 
 
-def generate_summary(df: pd.DataFrame) -> str:
+def generate_summary(df: pd.DataFrame, path: Path = Path("reports")) -> str:
     avg_tuition = df["tuition"].mean()
     avg_debt = df["estimated_debt"].mean()
     avg_earnings = df["earnings_2024_adjusted"].mean()
@@ -18,6 +19,60 @@ def generate_summary(df: pd.DataFrame) -> str:
 
     fastest_payback = df.loc[df["payback_years"].idxmin()]
     slowest_payback = df.loc[df["payback_years"].idxmax()]
+
+    summary_data = {
+        "report_date": datetime.now().strftime("%B %d, %Y"),
+        "overall_averages": {
+            "avg_annual_tuition": avg_tuition,
+            "avg_total_debt": avg_debt,
+            "avg_earnings_year_2": avg_earnings,
+            "avg_5yr_roi": avg_roi,
+            "avg_payback_period_years": avg_payback,
+        },
+        "best_performing": {
+            "highest_roi": {
+                "field": best_roi["field"],
+                "roi_5yr": best_roi["roi_5yr_w_tuition"],
+                "annual_tuition": best_roi["tuition"],
+                "median_earnings": best_roi["earnings_2024_adjusted"],
+            },
+            "best_value": {
+                "field": best_value["field"],
+                "earnings_per_dollar": best_value["earnings_per_dollar_tuition"],
+                "annual_tuition": best_value["tuition"],
+                "median_earnings": best_value["earnings_2024_adjusted"],
+            },
+            "fastest_payback": {
+                "field": fastest_payback["field"],
+                "payback_years": fastest_payback["payback_years"],
+                "debt_to_income": fastest_payback["debt_to_income"],
+            },
+        },
+        "areas_of_concern": {
+            "lowest_roi": {
+                "field": worst_roi["field"],
+                "roi_5yr": worst_roi["roi_5yr_w_tuition"],
+                "annual_tuition": worst_roi["tuition"],
+                "median_earnings": worst_roi["earnings_2024_adjusted"],
+            },
+            "lowest_value": {
+                "field": worst_value["field"],
+                "earnings_per_dollar": worst_value["earnings_per_dollar_tuition"],
+                "annual_tuition": worst_value["tuition"],
+                "median_earnings": worst_value["earnings_2024_adjusted"],
+            },
+            "slowest_payback": {
+                "field": slowest_payback["field"],
+                "payback_years": slowest_payback["payback_years"],
+                "debt_to_income": slowest_payback["debt_to_income"],
+            },
+        },
+    }
+
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "summary.json"
+    with open(json_path, "w") as f:
+        json.dump(summary_data, f, indent=4)
 
     summary = f"""
 # Canadian University Education ROI Analysis
@@ -79,7 +134,14 @@ This report includes the following data visualizations (see `figures/` directory
     return summary
 
 
-def generate_field_rankings(df: pd.DataFrame) -> str:
+def generate_field_rankings(df: pd.DataFrame, path: Path = Path("reports")) -> str:
+    rankings_data = {
+        "by_5yr_roi": [],
+        "by_earnings_per_dollar": [],
+        "by_debt_to_income": [],
+        "by_payback_period": [],
+    }
+
     rankings = """
 ## Field Rankings
 
@@ -88,6 +150,9 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     roi_ranked = df.sort_values("roi_5yr_w_tuition", ascending=False)
     for i, (idx, row) in enumerate(roi_ranked.iterrows(), 1):
         rankings += f"{i}. **{row['field'].replace('_', ' ').title()}** - {row['roi_5yr_w_tuition']:.2f}x\n"
+        rankings_data["by_5yr_roi"].append(
+            {"rank": i, "field": row["field"], "value": row["roi_5yr_w_tuition"]}
+        )
 
     rankings += """
 ### By Earnings per Dollar of Tuition
@@ -95,6 +160,13 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     value_ranked = df.sort_values("earnings_per_dollar_tuition", ascending=False)
     for i, (idx, row) in enumerate(value_ranked.iterrows(), 1):
         rankings += f"{i}. **{row['field'].replace('_', ' ').title()}** - ${row['earnings_per_dollar_tuition']:.2f}\n"
+        rankings_data["by_earnings_per_dollar"].append(
+            {
+                "rank": i,
+                "field": row["field"],
+                "value": row["earnings_per_dollar_tuition"],
+            }
+        )
 
     rankings += """
 ### By Debt-to-Income Ratio (Lower is Better)
@@ -102,6 +174,9 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     debt_ranked = df.sort_values("debt_to_income", ascending=True)
     for i, (idx, row) in enumerate(debt_ranked.iterrows(), 1):
         rankings += f"{i}. **{row['field'].replace('_', ' ').title()}** - {row['debt_to_income']:.2f}x\n"
+        rankings_data["by_debt_to_income"].append(
+            {"rank": i, "field": row["field"], "value": row["debt_to_income"]}
+        )
 
     rankings += """
 ### By Payback Period (Faster is Better)
@@ -109,14 +184,25 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     payback_ranked = df.sort_values("payback_years", ascending=True)
     for i, (idx, row) in enumerate(payback_ranked.iterrows(), 1):
         rankings += f"{i}. **{row['field'].replace('_', ' ').title()}** - {row['payback_years']:.1f} years\n"
+        rankings_data["by_payback_period"].append(
+            {"rank": i, "field": row["field"], "value": row["payback_years"]}
+        )
     rankings += "\n---\n"
+
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "rankings.json"
+    with open(json_path, "w") as f:
+        json.dump(rankings_data, f, indent=4)
 
     return rankings
 
 
-def generate_table(df: pd.DataFrame) -> str:
+def generate_table(df: pd.DataFrame, path: Path = Path("reports")) -> str:
     # Sort by ROI for table presentation
     df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False).copy()
+    path.mkdir(parents=True, exist_ok=True)
+    csv_path = path / "roi_table.csv"
+    df_sorted.to_csv(csv_path, index=False)
 
     table = """
 ## Data Table
@@ -135,7 +221,37 @@ def generate_table(df: pd.DataFrame) -> str:
     return table
 
 
-def generate_visualizations(df: pd.DataFrame) -> str:
+def generate_visualizations(df: pd.DataFrame, path: Path = Path("reports")) -> str:
+    viz_data = {
+        "visualizations": [
+            {
+                "name": "Tuition vs Earnings Chart",
+                "filename": "tuition_vs_earnings.png",
+                "description": "Shows the relationship between total 4-year tuition costs and median earnings 2 years after graduation",
+            },
+            {
+                "name": "ROI Comparison by Field",
+                "filename": "roi_by_field.png",
+                "description": "Side-by-side comparison showing 5-year ROI calculated based on tuition and debt",
+            },
+            {
+                "name": "Payback Period by Field",
+                "filename": "payback_years.png",
+                "description": "Estimated years to repay student debt assuming 25% tax rate and 10% of post-tax income to debt repayment",
+            },
+            {
+                "name": "Debt-to-Income Ratio Rankings",
+                "filename": "debt_to_income_ratio.png",
+                "description": "Horizontal bar chart showing estimated debt as a multiple of annual earnings",
+            },
+        ]
+    }
+
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "visualizations.json"
+    with open(json_path, "w") as f:
+        json.dump(viz_data, f, indent=4)
+
     visualization = """
 ## Data Visualizations
 
@@ -194,12 +310,14 @@ Horizontal bar chart showing estimated debt as a multiple of annual earnings. A 
     return visualization
 
 
-def generate_analysis(df: pd.DataFrame) -> str:
+def generate_analysis(df: pd.DataFrame, path: Path = Path("reports")) -> str:
+    df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False)
+    analysis_data = {"fields": []}
+
     analysis = """
 ## Field Analysis
 
 """
-    df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False)
 
     for idx, row in df_sorted.iterrows():
         field_name = row["field"].replace("_", " ").title()
@@ -215,6 +333,31 @@ def generate_analysis(df: pd.DataFrame) -> str:
             if row["earnings_per_dollar_tuition"]
             > df["earnings_per_dollar_tuition"].mean()
             else "below"
+        )
+
+        analysis_data["fields"].append(
+            {
+                "field": row["field"],
+                "field_display_name": field_name,
+                "financial_metrics": {
+                    "annual_tuition": row["tuition"],
+                    "total_4yr_tuition": row["total_tuition"],
+                    "estimated_debt": row["estimated_debt"],
+                    "median_earnings_year_2": row["earnings_2024_adjusted"],
+                },
+                "roi_metrics": {
+                    "earnings_per_dollar_tuition": row["earnings_per_dollar_tuition"],
+                    "earnings_per_dollar_comparison": value_comparison,
+                    "roi_5yr_tuition": row["roi_5yr_w_tuition"],
+                    "roi_tuition_comparison": roi_comparison,
+                    "roi_5yr_debt": row["roi_5yr_w_debt"],
+                },
+                "debt_burden": {
+                    "debt_to_income_ratio": row["debt_to_income"],
+                    "payback_period_years": row["payback_years"],
+                },
+                "enrollment": int(row["enrollment"]),
+            }
         )
 
         analysis += f"""
@@ -240,10 +383,17 @@ def generate_analysis(df: pd.DataFrame) -> str:
 ---
 """
 
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "analysis.json"
+    with open(json_path, "w") as f:
+        json.dump(analysis_data, f, indent=4)
+
     return analysis
 
 
-def generate_policy_recommendations(df: pd.DataFrame) -> str:
+def generate_policy_recommendations(
+    df: pd.DataFrame, path: Path = Path("reports")
+) -> str:
     # Identify high-enrollment, low-ROI fields
     median_roi = df["roi_5yr_w_tuition"].median()
     median_enrollment = df["enrollment"].median()
@@ -257,6 +407,34 @@ def generate_policy_recommendations(df: pd.DataFrame) -> str:
         "debt_to_income", ascending=False
     )
 
+    policy_data = {
+        "areas_requiring_attention": {
+            "high_enrollment_low_roi": [],
+            "high_debt_burden": [],
+        },
+        "best_practices": [],
+        "recommendations": {
+            "high_enrollment_low_roi_fields": [
+                "Review tuition pricing structures for these programs",
+                "Enhance career counseling and job placement services",
+                "Consider industry partnerships to improve employment outcomes",
+                "Develop financial literacy programs for students in these fields",
+            ],
+            "high_debt_burden_fields": [
+                "Expand scholarship and grant programs for these fields",
+                "Review whether tuition costs are justified by earnings potential",
+                "Consider capping debt levels for students in these programs",
+            ],
+            "system_wide": [
+                "Transparency: Provide prospective students with clear ROI data before enrollment",
+                "Affordability: Review tuition increases relative to earnings outcomes",
+                "Accountability: Track and publish graduate outcomes by program",
+                "Support: Enhance financial aid for high-social-value, lower-earning fields",
+                "Flexibility: Develop more affordable pathway options (e.g., co-op, apprenticeship models)",
+            ],
+        },
+    }
+
     recommendations = """
 ## Policy Recommendations
 
@@ -268,6 +446,13 @@ These fields serve many students but show below-median returns:
 """
     for idx, row in high_enroll_low_roi.iterrows():
         recommendations += f"- **{row['field'].replace('_', ' ').title()}**: {row['enrollment']:,.0f} students, ROI {row['roi_5yr_w_tuition']:.2f}x\n"
+        policy_data["areas_requiring_attention"]["high_enrollment_low_roi"].append(
+            {
+                "field": row["field"],
+                "enrollment": int(row["enrollment"]),
+                "roi_5yr": row["roi_5yr_w_tuition"],
+            }
+        )
 
     recommendations += """
 **Recommendations:**
@@ -280,6 +465,13 @@ These fields serve many students but show below-median returns:
 """
     for idx, row in high_debt_burden.iterrows():
         recommendations += f"- **{row['field'].replace('_', ' ').title()}**: Debt-to-Income {row['debt_to_income']:.2f}x, Payback {row['payback_years']:.1f} years\n"
+        policy_data["areas_requiring_attention"]["high_debt_burden"].append(
+            {
+                "field": row["field"],
+                "debt_to_income": row["debt_to_income"],
+                "payback_years": row["payback_years"],
+            }
+        )
 
     recommendations += """
 **Recommendations:**
@@ -300,6 +492,13 @@ Fields showing strong ROI and reasonable debt burdens can serve as models:
 
     for idx, row in best_practices.iterrows():
         recommendations += f"- **{row['field'].replace('_', ' ').title()}**: ROI {row['roi_5yr_w_tuition']:.2f}x, Debt-to-Income {row['debt_to_income']:.2f}x\n"
+        policy_data["best_practices"].append(
+            {
+                "field": row["field"],
+                "roi_5yr": row["roi_5yr_w_tuition"],
+                "debt_to_income": row["debt_to_income"],
+            }
+        )
 
     recommendations += """
 **Recommendations:**
@@ -316,10 +515,71 @@ Fields showing strong ROI and reasonable debt burdens can serve as models:
 
 ---
 """
+
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "policy_recommendations.json"
+    with open(json_path, "w") as f:
+        json.dump(policy_data, f, indent=2)
+
     return recommendations
 
 
-def generate_methodology(df: pd.DataFrame) -> str:
+def generate_methodology(df: pd.DataFrame, path: Path = Path("reports")) -> str:
+    methodology_data = {
+        "data_sources": [
+            "Table 37-10-0003-01: Canadian undergraduate tuition fees by field of study",
+            "Table 37-10-0280-01: Characteristics and median employment income of longitudinal cohorts",
+            "Table 37-10-0011-01: Postsecondary enrolments by field of study",
+            "Table 37-10-0036-01: Student debt from all sources",
+        ],
+        "assumptions": {
+            "inflation_adjustment": {
+                "cpi_2018_to_2024": 1.21,
+                "cpi_2020_to_2024": 1.14,
+            },
+            "debt_estimation": {
+                "method": "Proportional to tuition costs",
+                "formula": "(tuition_for_field / avg_tuition) * avg_national_debt",
+                "program_length": "4 years",
+            },
+            "roi_calculation": {
+                "earnings_growth": 0.03,
+                "base_period": "2 years post-graduation",
+                "tuition_roi_formula": "(5yr_cumulative_earnings - total_tuition) / total_tuition",
+                "debt_roi_formula": "(5yr_cumulative_earnings - estimated_debt) / estimated_debt",
+            },
+            "payback_calculation": {
+                "income_to_debt_repayment": 0.10,
+                "tax_rate": 0.25,
+                "interest_rate": 0.0,
+                "formula": "debt / (post_tax_income * repayment_percentage)",
+            },
+            "earnings_per_dollar": {
+                "formula": "median_annual_earnings_year2 / total_4yr_tuition"
+            },
+        },
+        "limitations": [
+            "Earnings data represents median, not mean",
+            "Does not account for regional variation",
+            "Does not distinguish graduate vs undergraduate in some fields",
+            "Does not account for scholarships, grants, or other financial aid",
+            "Does not account for career progression beyond Year 2",
+            "Does not account for job market saturation or demand",
+            "Does not account for individual career choices and performance",
+        ],
+        "data_years": {
+            "tuition": "2023/2024",
+            "earnings": "2018 (inflation-adjusted to 2024)",
+            "enrollment": "2023/2024",
+            "debt": "2020 (inflation-adjusted to 2024)",
+        },
+    }
+
+    path.mkdir(parents=True, exist_ok=True)
+    json_path = path / "methodology.json"
+    with open(json_path, "w") as f:
+        json.dump(methodology_data, f, indent=2)
+
     methodology = """
 ## Methodology & Assumptions
 

@@ -1,0 +1,224 @@
+{
+    "fields": [
+        {
+            "field": "education",
+            "field_display_name": "Education",
+            "financial_metrics": {
+                "annual_tuition": 5403.0,
+                "total_4yr_tuition": 21612.0,
+                "estimated_debt": 19832.564203670678,
+                "median_earnings_year_2": 28245.009708737864
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.3069132754366954,
+                "earnings_per_dollar_comparison": "above",
+                "roi_5yr_tuition": 5.837531745412024,
+                "roi_tuition_comparison": "above",
+                "roi_5yr_debt": 6.451015136736297
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.7021617060211272,
+                "payback_period_years": 9.362156080281695
+            },
+            "enrollment": 3291024
+        },
+        {
+            "field": "health",
+            "field_display_name": "Health",
+            "financial_metrics": {
+                "annual_tuition": 6435.0,
+                "total_4yr_tuition": 25740.0,
+                "estimated_debt": 23620.68307433293,
+                "median_earnings_year_2": 33421.12054901961
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.2984118317412434,
+                "earnings_per_dollar_comparison": "above",
+                "roi_5yr_tuition": 5.793053743510893,
+                "roi_tuition_comparison": "above",
+                "roi_5yr_debt": 6.40254643812448
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.7067591596663515,
+                "payback_period_years": 9.423455462218017
+            },
+            "enrollment": 9199782
+        },
+        {
+            "field": "social_sciences",
+            "field_display_name": "Social Sciences",
+            "financial_metrics": {
+                "annual_tuition": 6078.0,
+                "total_4yr_tuition": 24312.0,
+                "estimated_debt": 22310.25823244686,
+                "median_earnings_year_2": 28984.42796735905
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.1921860796050943,
+                "earnings_per_dollar_comparison": "above",
+                "roi_5yr_tuition": 5.237299994534325,
+                "roi_tuition_comparison": "above",
+                "roi_5yr_debt": 5.796928833686897
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.7697325701087377,
+                "payback_period_years": 10.263100934783171
+            },
+            "enrollment": 9961917
+        },
+        {
+            "field": "business",
+            "field_display_name": "Business",
+            "financial_metrics": {
+                "annual_tuition": 7690.0,
+                "total_4yr_tuition": 30760.0,
+                "estimated_debt": 28227.35863894642,
+                "median_earnings_year_2": 34046.94667176741
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.1068578241796947,
+                "earnings_per_dollar_comparison": "above",
+                "roi_5yr_tuition": 4.79087813455525,
+                "roi_tuition_comparison": "above",
+                "roi_5yr_debt": 5.31045269581653
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.829071661288008,
+                "payback_period_years": 11.05428881717344
+            },
+            "enrollment": 15262449
+        },
+        {
+            "field": "comp_sci",
+            "field_display_name": "Comp Sci",
+            "financial_metrics": {
+                "annual_tuition": 7407.0,
+                "total_4yr_tuition": 29628.0,
+                "estimated_debt": 27188.56247577063,
+                "median_earnings_year_2": 32247.720636249476
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.0884204345973227,
+                "earnings_per_dollar_comparison": "above",
+                "roi_5yr_tuition": 4.6944170770838785,
+                "roi_tuition_comparison": "above",
+                "roi_5yr_debt": 5.205336869508734
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.8431157904911928,
+                "payback_period_years": 11.241543873215905
+            },
+            "enrollment": 5267283
+        },
+        {
+            "field": "personal_services",
+            "field_display_name": "Personal Services",
+            "financial_metrics": {
+                "annual_tuition": 6204.0,
+                "total_4yr_tuition": 24816.0,
+                "estimated_debt": 22772.761117818412,
+                "median_earnings_year_2": 25161.558177826562
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 1.0139248137422052,
+                "earnings_per_dollar_comparison": "below",
+                "roi_5yr_tuition": 4.30466958422071,
+                "roi_tuition_comparison": "below",
+                "roi_5yr_debt": 4.780620089103716
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.9050616403354041,
+                "payback_period_years": 12.067488537805389
+            },
+            "enrollment": 1553295
+        },
+        {
+            "field": "agriculture",
+            "field_display_name": "Agriculture",
+            "financial_metrics": {
+                "annual_tuition": 6416.0,
+                "total_4yr_tuition": 25664.0,
+                "estimated_debt": 23550.940575745157,
+                "median_earnings_year_2": 24344.199913904435
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 0.948573874450765,
+                "earnings_per_dollar_comparison": "below",
+                "roi_5yr_tuition": 3.9627653963943152,
+                "roi_tuition_comparison": "below",
+                "roi_5yr_debt": 4.408039255308336
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 0.9674148527795239,
+                "payback_period_years": 12.898864703726984
+            },
+            "enrollment": 1291170
+        },
+        {
+            "field": "physical_sciences",
+            "field_display_name": "Physical Sciences",
+            "financial_metrics": {
+                "annual_tuition": 6205.0,
+                "total_4yr_tuition": 24820.0,
+                "estimated_debt": 22776.431775638823,
+                "median_earnings_year_2": 21500.898106508874
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 0.8662730905120416,
+                "earnings_per_dollar_comparison": "below",
+                "roi_5yr_tuition": 3.5321827147199834,
+                "roi_tuition_comparison": "below",
+                "roi_5yr_debt": 3.938823433250222
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 1.05932466926783,
+                "payback_period_years": 14.124328923571063
+            },
+            "enrollment": 6194085
+        },
+        {
+            "field": "humanities",
+            "field_display_name": "Humanities",
+            "financial_metrics": {
+                "annual_tuition": 6127.0,
+                "total_4yr_tuition": 24508.0,
+                "estimated_debt": 22490.12046564691,
+                "median_earnings_year_2": 18753.988351338656
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 0.7652190448563185,
+                "earnings_per_dollar_comparison": "below",
+                "roi_5yr_tuition": 3.003486390212572,
+                "roi_tuition_comparison": "below",
+                "roi_5yr_debt": 3.362690924719663
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 1.1992180033556206,
+                "payback_period_years": 15.989573378074942
+            },
+            "enrollment": 7677327
+        },
+        {
+            "field": "visual_arts",
+            "field_display_name": "Visual Arts",
+            "financial_metrics": {
+                "annual_tuition": 6346.0,
+                "total_4yr_tuition": 25384.0,
+                "estimated_debt": 23293.994528316514,
+                "median_earnings_year_2": 15480.560618462938
+            },
+            "roi_metrics": {
+                "earnings_per_dollar_tuition": 0.6098550511528104,
+                "earnings_per_dollar_comparison": "below",
+                "roi_5yr_tuition": 2.1906503290846686,
+                "roi_tuition_comparison": "below",
+                "roi_5yr_debt": 2.476924829489027
+            },
+            "debt_burden": {
+                "debt_to_income_ratio": 1.5047255136570998,
+                "payback_period_years": 20.06300684876133
+            },
+            "enrollment": 2774625
+        }
+    ]
+}
