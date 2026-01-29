@@ -1,3 +1,6 @@
+from pathlib import Path
+import shutil
+import tempfile
 import pandas as pd
 import pytest
 
@@ -37,3 +40,11 @@ def complete_data():
             "earnings_2018": [23140, 28100, 26450],
         }
     )
+
+
+@pytest.fixture
+def temp_dir():
+    """Temporary directory for test outputs"""
+    temp = tempfile.mkdtemp()
+    yield Path(temp)
+    shutil.rmtree(temp)
