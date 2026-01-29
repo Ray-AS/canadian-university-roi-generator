@@ -20,7 +20,7 @@ def generate_summary(df: pd.DataFrame) -> str:
     slowest_payback = df.loc[df["payback_years"].idxmax()]
 
     summary = f"""
-# Summary: Canadian University Education ROI Analysis
+# Canadian University Education ROI Analysis
 
 **Report Date:** {datetime.now().strftime("%B %d, %Y")}
 
