@@ -1,8 +1,11 @@
 from pathlib import Path
 import shutil
 import tempfile
+import numpy as np
 import pandas as pd
 import pytest
+
+from normalization import normalize_ref_date
 
 
 @pytest.fixture
@@ -48,3 +51,11 @@ def temp_dir():
     temp = tempfile.mkdtemp()
     yield Path(temp)
     shutil.rmtree(temp)
+
+
+class TestCalculations:
+    def test_normalize_ref_date_converts_academic_year(self):
+        df = pd.DataFrame({"REF_DATE": ["2020/2021"]})
+        result = normalize_ref_date(df)
+        assert result["REF_DATE"].iloc[0] == 2020
+        assert result["REF_DATE"].dtype == np.int64
