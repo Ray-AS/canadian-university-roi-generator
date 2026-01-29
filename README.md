@@ -4,7 +4,7 @@ A data analysis tool that calculates return on investment (ROI) for Canadian uni
 
 **View Automatically Generated Report:** [REPORT](./reports/REPORT.md)
 
-![sample graph: return on investment vs field]("./figures/roi_by_field.png")
+![sample graph: return on investment vs field](./figures/roi_by_field.png)
 
 ## Tools
 
