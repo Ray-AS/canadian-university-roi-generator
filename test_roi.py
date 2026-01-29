@@ -7,6 +7,7 @@ import pytest
 
 from calculation import calculate_roi_by_field
 from normalization import normalize_ref_date
+from plots import generate_all_plots
 
 
 @pytest.fixture
@@ -76,7 +77,6 @@ class TestCalculations:
             assert col in result.columns
 
     def test_roi_values_are_positive(self, sample_data):
-        """Test that ROI calculations produce positive values"""
         result = calculate_roi_by_field(sample_data)
 
         assert (result["roi_5yr_w_tuition"] > 0).all()
@@ -84,7 +84,6 @@ class TestCalculations:
         assert (result["payback_years"] > 0).all()
 
     def test_known_roi_calculation(self):
-        """Test ROI against manually calculated value"""
         df = pd.DataFrame(
             {
                 "field": ["test"],
@@ -102,3 +101,20 @@ class TestCalculations:
         actual = result["roi_5yr_w_tuition"].iloc[0]
 
         assert abs(actual - expected) / expected < 0.1
+
+
+class TestOutputs:
+    def test_all_plots_generated(self, complete_data, temp_dir):
+        generate_all_plots(complete_data, temp_dir)
+
+        plots = [
+            "tuition_vs_earnings.png",
+            "roi_by_field.png",
+            "debt_to_income_ratio.png",
+            "payback_years.png",
+        ]
+
+        for plot in plots:
+            path = temp_dir / plot
+            assert path.exists()
+            assert path.stat().st_size > 0
