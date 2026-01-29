@@ -24,6 +24,15 @@ def generate_summary(df: pd.DataFrame) -> str:
 
 **Report Date:** {datetime.now().strftime("%B %d, %Y")}
 
+## Visual Overview
+
+This report includes the following data visualizations (see `figures/` directory):
+
+1. **Tuition vs Earnings Chart** - Shows relationship between tuition costs and earnings (after 2 years)
+3. **Debt-to-Income Ratio Rankings** - Visualizes repayment burden across fields
+4. **Payback Period by Field** - Shows years required to repay debt at 10% of post-tax income
+6. **ROI Comparison by Field** - Side-by-side comparison of ROI of all fields
+
 ## Key Findings
 
 ### Overall
@@ -103,6 +112,29 @@ def generate_field_rankings(df: pd.DataFrame) -> str:
     rankings += "\n---\n"
 
     return rankings
+
+
+def generate_summary_table(df: pd.DataFrame) -> str:
+    """Generate a markdown table with all key metrics"""
+
+    # Sort by ROI for table presentation
+    df_sorted = df.sort_values("roi_5yr_w_tuition", ascending=False).copy()
+
+    table = """
+## Summary Data Table
+
+| Field | Annual Tuition | Total Debt | Earnings (Yr 2) | ROI (Tuition) | ROI (Debt) | Debt-to-Income | Payback Years | Earnings/$ Tuition | Enrollment |
+|-------|----------------|------------|-----------------|---------------|------------|----------------|---------------|-------------------|------------|
+"""
+
+    for idx, row in df_sorted.iterrows():
+        field_name = row["field"].replace("_", " ").title()
+        table += f"| {field_name} | ${row['tuition']:,.0f} | ${row['estimated_debt']:,.0f} | ${row['earnings_2024_adjusted']:,.0f} | {row['roi_5yr_w_tuition']:.2f}x | {row['roi_5yr_w_debt']:.2f}x | {row['debt_to_income']:.2f}x | {row['payback_years']:.1f} yrs | ${row['earnings_per_dollar_tuition']:.2f} | {row['enrollment']:,.0f} |\n"
+
+    table += """
+---
+"""
+    return table
 
 
 def generate_analysis(df: pd.DataFrame) -> str:
