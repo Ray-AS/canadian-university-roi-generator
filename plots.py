@@ -220,7 +220,7 @@ def generate_all_plots(df: pd.DataFrame, output_path: Path = Path("figures")):
 
     plot_tuition_vs_earnings(df, output_path)
     plot_roi_by_field(df, output_path)
-    plot_debt_to_income(df, output_path)
+    plot_payback_years(df, output_path)
     plot_debt_to_income(df, output_path)
 
     print("=" * 60)

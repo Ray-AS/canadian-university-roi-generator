@@ -13,6 +13,7 @@ from preparation import (
     prepare_enrollment_data,
     prepare_tuition_data,
 )
+from report import generate_report
 
 # from mock import make_mock_merged_df
 
@@ -20,7 +21,7 @@ from preparation import (
 def main():
     tuition_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["tuition"]),
-        ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"],
+        ["2020/2021", "2021/2022", "2022/2023", "2023/2024"],
         field_of_study_exclude=["Total, field of study"],
     )
 
@@ -42,7 +43,7 @@ def main():
 
     enrollment_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["enrollments"]),
-        ["2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025"],
+        ["2020/2021", "2021/2022", "2022/2023", "2023/2024"],
         field_of_study_exclude=["Total, field of study"],
     )
 
@@ -56,7 +57,7 @@ def main():
 
     debt_data = filter_statcan_data(
         fetch_statcan_table(STAT_CAN_TABLES["debt"]),
-        [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+        [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
         level_of_study_include=["Bachelor's"],
     )
 
@@ -86,6 +87,7 @@ def main():
     print(merged_w_roi.columns)
 
     generate_all_plots(merged_w_roi)
+    generate_report(merged_w_roi)
 
 
 if __name__ == "__main__":
