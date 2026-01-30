@@ -1,7 +1,7 @@
 
 # Canadian University Education ROI Analysis
 
-**Report Date:** January 29, 2026
+**Report Date:** January 30, 2026
 
 ## Visual Overview
 
@@ -499,7 +499,7 @@ Fields showing strong ROI and reasonable debt burdens can serve as models:
 
 ---
 
-**Report Generated:** January 29, 2026 at 06:20 PM
+**Report Generated:** January 30, 2026 at 05:52 PM
 
 **Data Sources:** Statistics Canada Tables 37-10-0003-01, 37-10-0280-01, 37-10-0011-01, 37-10-0036-01
 
