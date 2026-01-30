@@ -6,6 +6,77 @@ import { formatCurrency, formatFieldName } from '../formatters';
 import LoadingSpinner from './LoadingSpinner';
 
 export default function FieldsPage() {
+  const styles = {
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '20px',
+    },
+    title: {
+      fontSize: '2.5rem',
+      marginBottom: '30px',
+      textAlign: 'center' as const,
+    },
+    controls: {
+      marginBottom: '30px',
+      textAlign: 'center' as const,
+    },
+    label: {
+      fontSize: '1.1rem',
+      fontWeight: 'bold' as const,
+    },
+    select: {
+      marginLeft: '10px',
+      padding: '8px 15px',
+      fontSize: '1rem',
+      borderRadius: '4px',
+      border: '1px solid #ddd',
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+      gap: '20px',
+    },
+    card: {
+      backgroundColor: 'white',
+      padding: '20px',
+      borderRadius: '8px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      cursor: 'pointer',
+      transition: 'transform 0.2s, box-shadow 0.2s',
+    },
+    cardTitle: {
+      fontSize: '1.3rem',
+      marginBottom: '15px',
+      color: '#333',
+      borderBottom: '2px solid #007bff',
+      paddingBottom: '10px',
+    },
+    metric: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: '8px 0',
+      borderBottom: '1px solid #f0f0f0',
+    },
+    metricLabel: {
+      color: '#666',
+      fontSize: '0.95rem',
+    },
+    metricValue: {
+      fontWeight: 'bold' as const,
+      color: '#333',
+    },
+    enrollmentBadge: {
+      marginTop: '15px',
+      padding: '8px',
+      backgroundColor: '#e9ecef',
+      borderRadius: '4px',
+      textAlign: 'center' as const,
+      fontSize: '0.9rem',
+      color: '#495057',
+    },
+  };
+
   const [fields, setFields] = useState<FieldData[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'roi' | 'tuition' | 'earnings' | 'payback'>('roi');
@@ -105,75 +176,4 @@ export default function FieldsPage() {
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '20px',
-  },
-  title: {
-    fontSize: '2.5rem',
-    marginBottom: '30px',
-    textAlign: 'center' as const,
-  },
-  controls: {
-    marginBottom: '30px',
-    textAlign: 'center' as const,
-  },
-  label: {
-    fontSize: '1.1rem',
-    fontWeight: 'bold' as const,
-  },
-  select: {
-    marginLeft: '10px',
-    padding: '8px 15px',
-    fontSize: '1rem',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '20px',
-  },
-  card: {
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    cursor: 'pointer',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-  },
-  cardTitle: {
-    fontSize: '1.3rem',
-    marginBottom: '15px',
-    color: '#333',
-    borderBottom: '2px solid #007bff',
-    paddingBottom: '10px',
-  },
-  metric: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '8px 0',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  metricLabel: {
-    color: '#666',
-    fontSize: '0.95rem',
-  },
-  metricValue: {
-    fontWeight: 'bold' as const,
-    color: '#333',
-  },
-  enrollmentBadge: {
-    marginTop: '15px',
-    padding: '8px',
-    backgroundColor: '#e9ecef',
-    borderRadius: '4px',
-    textAlign: 'center' as const,
-    fontSize: '0.9rem',
-    color: '#495057',
-  },
 };
