@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Models/Methodology/" />
+    <Folder Include="Models/Policy/" />
     <Folder Include="Models/Rankings/" />
     <Folder Include="Models/Summary/" />
+    <Folder Include="Models/Table/" />
+    <Folder Include="Models/Visualizations/" />
   </ItemGroup>
 
 </Project>
