@@ -50,6 +50,14 @@ public class ReportController : ControllerBase
     return _service.Rankings is null ? NotFound() : Ok(_service.Rankings);
   }
 
+  [HttpGet("analysis/{fieldName}")]
+  public ActionResult<FieldAnalysis> GetAnalysis(string fieldName)
+  {
+    var fieldAnalysis = _service.Analysis.Fields.Find(field => field.Field == fieldName);
+
+    return fieldAnalysis is null ? NotFound() : Ok(fieldAnalysis);
+  }
+
   [HttpGet("analysis")]
   public ActionResult<Analysis> GetAnalysis()
   {
