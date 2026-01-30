@@ -17,6 +17,7 @@ export default function HomePage() {
     try {
       setLoading(true);
       const data = await getSummary();
+      console.log(data);
       setSummary(data);
     } finally {
       setLoading(false);
@@ -44,11 +45,11 @@ export default function HomePage() {
             <div style={styles.statLabel}>Average Annual Tuition</div>
           </div>
           <div style={styles.statCard}>
-            <div style={styles.statValue}>{formatCurrency(summary.overallAverages.avgEarningsYear2)}</div>
+            <div style={styles.statValue}>{formatCurrency(summary.overallAverages.avg_earnings_year_2)}</div>
             <div style={styles.statLabel}>Average Earnings (Year 2)</div>
           </div>
           <div style={styles.statCard}>
-            <div style={styles.statValue}>{summary.overallAverages.avg5yrRoi.toFixed(2)}x</div>
+            <div style={styles.statValue}>{summary.overallAverages.avg_5yr_roi.toFixed(2)}x</div>
             <div style={styles.statLabel}>Average 5-Year ROI</div>
           </div>
           <div style={styles.statCard}>
@@ -64,20 +65,20 @@ export default function HomePage() {
           
           <div style={styles.highlightCard}>
             <h4>Highest ROI</h4>
-            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.roiResult.field)}</div>
-            <div style={styles.highlightStat}>{summary.bestPerforming.roiResult.roi5yr.toFixed(2)}x ROI</div>
+            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.highestRoi.field)}</div>
+            <div style={styles.highlightStat}>{summary.bestPerforming.highestRoi.roi_5yr.toFixed(2)}x ROI</div>
           </div>
 
           <div style={styles.highlightCard}>
             <h4>Best Value</h4>
-            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.valueResult.field)}</div>
-            <div style={styles.highlightStat}>${summary.bestPerforming.valueResult.earningsPerDollar.toFixed(2)} per dollar</div>
+            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.bestValue.field)}</div>
+            <div style={styles.highlightStat}>${summary.bestPerforming.bestValue.earningsPerDollar.toFixed(2)} per dollar</div>
           </div>
 
           <div style={styles.highlightCard}>
             <h4>Fastest Payback</h4>
-            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.paybackResult.field)}</div>
-            <div style={styles.highlightStat}>{summary.bestPerforming.paybackResult.paybackYears.toFixed(1)} years</div>
+            <div style={styles.fieldName}>{formatFieldName(summary.bestPerforming.fastestPayback.field)}</div>
+            <div style={styles.highlightStat}>{summary.bestPerforming.fastestPayback.paybackYears.toFixed(1)} years</div>
           </div>
         </div>
       </div>

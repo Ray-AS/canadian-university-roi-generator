@@ -3,24 +3,24 @@ export interface Summary {
   overallAverages: {
     avgAnnualTuition: number;
     avgTotalDebt: number;
-    avgEarningsYear2: number;
-    avg5yrRoi: number;
+    avg_earnings_year_2: number;
+    avg_5yr_roi: number;
     avgPaybackPeriodYears: number;
   };
   bestPerforming: {
-    roiResult: {
+    highestRoi: {
       field: string;
-      roi5yr: number;
+      roi_5yr: number;
       annualTuition: number;
       medianEarnings: number;
     };
-    valueResult: {
+    bestValue: {
       field: string;
       earningsPerDollar: number;
       annualTuition: number;
       medianEarnings: number;
     };
-    paybackResult: {
+    fastestPayback: {
       field: string;
       paybackYears: number;
       debtToIncome: number;
@@ -35,7 +35,7 @@ export interface RankedField {
 }
 
 export interface Rankings {
-  by5yrRoi: RankedField[];
+  by_5yr_roi: RankedField[];
   byEarningsPerDollar: RankedField[];
   byDebtToIncome: RankedField[];
   byPaybackPeriod: RankedField[];
@@ -43,17 +43,17 @@ export interface Rankings {
 
 interface FinancialMetrics {
   annualTuition: number;
-  total4yrTuition: number;
+  total_4yr_tuition: number;
   estimatedDebt: number;
-  medianEarningsYear2: number;
+  median_earnings_year_2: number;
 }
 
 interface RoiMetrics {
   earningsPerDollarTuition: number;
   earningsPerDollarComparison: string;
-  roi5yrTuition: number;
+  roi_5yr_tuition: number;
   roiTuitionComparison: string;
-  roi5YrDebt: number;
+  roi_5yr_debt: number;
 }
 
 interface DebtBurden {
@@ -75,8 +75,8 @@ export interface Analysis {
 }
 
 interface InflationAdjustment {
-  cpi2018To2024: number;
-  cpi2020To2024: number;
+  cpi_2018_to_2024: number;
+  cpi_2020_to_2024: number;
 }
 
 interface DebtEstimation {
@@ -128,7 +128,7 @@ export interface Methodology {
 interface HighEnrollmentLowRoi {
   field: string;
   enrollment: number;
-  roi5yr: number;
+  roi_5yr: number;
 }
 
 interface HighDebtBurden {
@@ -144,7 +144,7 @@ interface AreasRequiringAttention {
 
 interface BestPractice {
   field: string;
-  roi5yr: number;
+  roi_5yr: number;
   debtToIncome: number;
 }
 
@@ -173,20 +173,20 @@ export interface VisualizationsDetails {
 interface TableRow {
   field: string;
   tuition: number;
-  earnings2018: number;
-  earnings2024Adjusted: number;
+  earnings_2018: number;
+  earnings_2024_adjusted: number;
   estimatedDebt: number;
   enrollment: number;
   totalTuition: number;
   debtToIncome: number;
   paybackYears: number;
   earnings5yr: number;
-  roi5yrWithDebt: number;
-  roi5yrWithTuition: number;
+  roi_5yr_w_debt: number;
+  roi_5yr_w_tuition: number;
   earningsPerDollarTuition: number;
 }
 
-export interface FieldDataEntity extends TableRow {
+export interface FieldData extends TableRow {
   id: number;
   createdAt: string;
 }
@@ -203,22 +203,4 @@ export interface CompleteReport {
   policyRecommendations: PolicyRecommendations;
   visualizations: VisualizationsDetails;
   table: Table;
-}
-
-export interface FieldData {
-  id: number;
-  field: string;
-  tuition: number;
-  earnings2018: number;
-  earnings2024Adjusted: number;
-  estimatedDebt: number;
-  enrollment: number;
-  totalTuition: number;
-  debtToIncome: number;
-  paybackYears: number;
-  earnings5yr: number;
-  roi5yrWithDebt: number;
-  roi5yrWithTuition: number;
-  earningsPerDollarTuition: number;
-  createdAt: string;
 }
