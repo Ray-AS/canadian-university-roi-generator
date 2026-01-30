@@ -15,4 +15,8 @@
     <Folder Include="Models/Visualizations/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="2.11.0" />
+  </ItemGroup>
+
 </Project>
