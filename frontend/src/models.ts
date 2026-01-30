@@ -186,11 +186,6 @@ interface TableRow {
   earningsPerDollarTuition: number;
 }
 
-export interface FieldData extends TableRow {
-  id: number;
-  createdAt: string;
-}
-
 export interface Table {
   roiTable: TableRow[];
 }
@@ -203,4 +198,22 @@ export interface CompleteReport {
   policyRecommendations: PolicyRecommendations;
   visualizations: VisualizationsDetails;
   table: Table;
+}
+
+export interface FieldData {
+  id: number;
+  field: string;
+  tuition: number;
+  earnings2018: number;
+  earnings2024Adjusted: number;
+  estimatedDebt: number;
+  enrollment: number;
+  totalTuition: number;
+  debtToIncome: number;
+  paybackYears: number;
+  earnings5yr: number;
+  roi5yrWithDebt: number;
+  roi5yrWithTuition: number;
+  earningsPerDollarTuition: number;
+  createdAt: string;
 }
