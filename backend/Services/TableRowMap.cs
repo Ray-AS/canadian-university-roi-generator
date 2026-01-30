@@ -3,7 +3,7 @@ using CsvHelper.Configuration;
 
 namespace backend.Services;
 
-public class TableRowMap : CsvClassMap<TableRow>
+public class TableRowMap : ClassMap<TableRow>
 {
   public TableRowMap()
   {
@@ -12,7 +12,7 @@ public class TableRowMap : CsvClassMap<TableRow>
     Map(m => m.Earnings2018).Name("earnings_2018");
     Map(m => m.Earnings2024Adjusted).Name("earnings_2024_adjusted");
     Map(m => m.EstimatedDebt).Name("estimated_debt");
-    Map(m => m.Enrollment).Name("enrollment");
+    Map(m => m.Enrollment).Name("enrollment").TypeConverter<DecimalToLongConverter>();
     Map(m => m.TotalTuition).Name("total_tuition");
     Map(m => m.DebtToIncome).Name("debt_to_income");
     Map(m => m.PaybackYears).Name("payback_years");

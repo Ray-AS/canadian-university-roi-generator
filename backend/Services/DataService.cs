@@ -8,12 +8,13 @@ using backend.Models.Table;
 using backend.Models.VisualizationsDetails;
 using CsvHelper;
 using System.Globalization;
+using CsvHelper.Configuration;
 
 namespace backend.Services;
 
 public class DataService
 {
-  private string BasePath { get; } = "../../reports";
+  private string BasePath { get; } = "../reports";
   public Summary Summary { get; private set; } = new();
   public Rankings Rankings { get; private set; } = new();
   public Analysis Analysis { get; private set; } = new();
@@ -57,15 +58,17 @@ public class DataService
   {
     var csvPath = Path.Combine(BasePath, "roi_table.csv");
 
+    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+    {
+      HasHeaderRecord = true,
+    };
+
     using var reader = new StreamReader(csvPath);
-    using var csv = new CsvReader(reader);
+    using var csv = new CsvReader(reader, config);
 
-    csv.Configuration.CultureInfo = CultureInfo.InvariantCulture;
-    csv.Configuration.HasHeaderRecord = true;
-
-    csv.Configuration.RegisterClassMap<TableRowMap>();
-
+    csv.Context.RegisterClassMap<TableRowMap>();
     var rows = csv.GetRecords<TableRow>().ToList();
+
     Table = new Table { RoiTable = rows };
   }
 }
