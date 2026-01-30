@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers/" />
+    <Folder Include="DTOs/" />
     <Folder Include="Models/Methodology/" />
     <Folder Include="Models/Policy/" />
     <Folder Include="Models/Rankings/" />
