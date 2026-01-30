@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSummary } from '../api';
 import { type Summary } from '../models';
 import { formatCurrency, formatFieldName } from '../formatters';
 import LoadingSpinner from './LoadingSpinner';
 
-const HomePage: React.FC = () => {
+export default function HomePage() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -228,5 +228,3 @@ const styles = {
     marginBottom: '15px',
   },
 };
-
-export default HomePage;
