@@ -7,8 +7,10 @@ public class DataSeeder
 {
   public static async Task SeedDataAsync(ReportDbContext context, DataService dataService)
   {
+    // If db is already seeded, don't reseed
     if (context.FieldData.Any()) return;
 
+    // Map data in data service read from roi_table.csv to FieldDataEntity to seed in db
     var entities = dataService.Table.RoiTable.Select(row => new FieldDataEntity
     {
       Field = row.Field,

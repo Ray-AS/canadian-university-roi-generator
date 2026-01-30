@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ReportDbContext>(options =>
@@ -12,10 +11,8 @@ builder.Services.AddDbContext<ReportDbContext>(options =>
   options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-// Register DataService as Singleton
 builder.Services.AddScoped<DataService>();
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
   options.AddPolicy("AllowAll", policy =>
@@ -26,7 +23,6 @@ builder.Services.AddCors(options =>
   });
 });
 
-// Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -42,7 +38,6 @@ using (var scope = app.Services.CreateScope())
   await DataSeeder.SeedDataAsync(context, dataService);
 }
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();

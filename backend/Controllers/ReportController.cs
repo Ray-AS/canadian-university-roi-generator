@@ -1,5 +1,6 @@
 using backend.DTOs;
 using backend.Models.Analysis;
+using backend.Models.Entities;
 using backend.Models.Methodology;
 using backend.Models.Policy;
 using backend.Models.Rankings;
@@ -50,14 +51,6 @@ public class ReportController : ControllerBase
     return _service.Rankings is null ? NotFound() : Ok(_service.Rankings);
   }
 
-  [HttpGet("analysis/{fieldName}")]
-  public ActionResult<FieldAnalysis> GetAnalysis(string fieldName)
-  {
-    var fieldAnalysis = _service.Analysis.Fields.Find(field => field.Field == fieldName);
-
-    return fieldAnalysis is null ? NotFound() : Ok(fieldAnalysis);
-  }
-
   [HttpGet("analysis")]
   public ActionResult<Analysis> GetAnalysis()
   {
@@ -86,5 +79,19 @@ public class ReportController : ControllerBase
   public ActionResult<Table> GetTable()
   {
     return _service.Table is null ? NotFound() : Ok(_service.Table);
+  }
+
+  [HttpGet("fields")]
+  public async Task<ActionResult<IEnumerable<FieldDataEntity>>> GetAllFields()
+  {
+    var fields = await _service.GetAllFieldsAsync();
+    return Ok(fields);
+  }
+
+  [HttpGet("fields/{fieldName}")]
+  public async Task<ActionResult<FieldDataEntity>> GetFieldByName(string fieldName)
+  {
+    var field = await _service.GetFieldByNameAsync(fieldName);
+    return field == null ? NotFound() : Ok(field);
   }
 }

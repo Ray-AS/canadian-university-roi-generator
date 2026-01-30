@@ -2,6 +2,7 @@ using System.Globalization;
 
 namespace backend.Services;
 
+// Account for conversion error when converting enrollment count from csv
 public class DecimalToLongConverter : CsvHelper.TypeConversion.DefaultTypeConverter
 {
   public override object ConvertFromString(string? text, CsvHelper.IReaderRow row, CsvHelper.Configuration.MemberMapData memberMapData)

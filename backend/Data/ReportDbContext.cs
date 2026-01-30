@@ -15,6 +15,7 @@ public class ReportDbContext : DbContext
   {
     base.OnModelCreating(modelBuilder);
 
+    // EF Core configuration for data in entity on build
     modelBuilder.Entity<FieldDataEntity>(entity =>
     {
       entity.HasKey(e => e.Id);
