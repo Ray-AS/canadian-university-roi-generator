@@ -33,9 +33,9 @@ A full-stack application analyzing the Return on Investment (ROI) for different 
 ### Data Analysis
 
 - **Python**
-  - pandas - Data manipulation and analysis
-  - matplotlib - Data visualization
-  - pytest - Unit testing
+  - pandas
+  - matplotlib
+  - pytest
 
 ### Backend
 
