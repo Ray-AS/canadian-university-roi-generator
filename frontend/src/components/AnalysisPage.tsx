@@ -4,6 +4,143 @@ import type { Analysis, FieldAnalysis } from '../models';
 import { formatCurrency } from '../formatters';
 import LoadingSpinner from './LoadingSpinner';
 
+const styles = {
+  container: {
+    maxWidth: '1400px',
+    margin: '0 auto',
+    padding: '20px',
+  },
+  title: {
+    fontSize: '2.5rem',
+    marginBottom: '10px',
+    textAlign: 'center' as const,
+  },
+  subtitle: {
+    textAlign: 'center' as const,
+    color: '#666',
+    marginBottom: '40px',
+    fontSize: '1.1rem',
+  },
+  layout: {
+    display: 'grid',
+    gridTemplateColumns: '300px 1fr',
+    gap: '30px',
+  },
+  sidebar: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    height: 'fit-content',
+    position: 'sticky' as const,
+    top: '20px',
+  },
+  sidebarTitle: {
+    marginBottom: '15px',
+    fontSize: '1.2rem',
+    color: '#333',
+  },
+  fieldButton: {
+    padding: '12px 15px',
+    marginBottom: '8px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    fontSize: '0.95rem',
+  },
+  fieldButtonActive: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    fontWeight: 'bold' as const,
+  },
+  content: {
+    minHeight: '500px',
+  },
+  placeholder: {
+    backgroundColor: 'white',
+    padding: '60px',
+    borderRadius: '8px',
+    textAlign: 'center' as const,
+    color: '#999',
+    fontSize: '1.2rem',
+  },
+  detailContainer: {
+    backgroundColor: 'white',
+    padding: '30px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  },
+  detailTitle: {
+    fontSize: '2rem',
+    marginBottom: '30px',
+    color: '#333',
+    borderBottom: '3px solid #007bff',
+    paddingBottom: '15px',
+  },
+  section: {
+    marginBottom: '40px',
+  },
+  sectionTitle: {
+    fontSize: '1.4rem',
+    marginBottom: '20px',
+    color: '#555',
+  },
+  metricsGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '15px',
+  },
+  metricCard: {
+    padding: '20px',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '8px',
+    textAlign: 'center' as const,
+  },
+  metricLabel: {
+    fontSize: '0.9rem',
+    color: '#666',
+    marginBottom: '10px',
+  },
+  metricValue: {
+    fontSize: '1.8rem',
+    fontWeight: 'bold' as const,
+    color: '#333',
+    marginBottom: '8px',
+  },
+  metricComparison: {
+    marginTop: '8px',
+  },
+  metricSubtext: {
+    fontSize: '0.85rem',
+    color: '#888',
+    marginTop: '5px',
+  },
+  badge: {
+    display: 'inline-block',
+    padding: '4px 10px',
+    borderRadius: '12px',
+    fontSize: '0.8rem',
+    fontWeight: 'bold' as const,
+  },
+  enrollmentCard: {
+    padding: '30px',
+    backgroundColor: '#e7f3ff',
+    borderRadius: '8px',
+    textAlign: 'center' as const,
+  },
+  enrollmentValue: {
+    fontSize: '3rem',
+    fontWeight: 'bold' as const,
+    color: '#007bff',
+  },
+  enrollmentLabel: {
+    fontSize: '1.2rem',
+    color: '#666',
+    marginTop: '10px',
+  },
+};
+
 export default function AnalysisPage(){
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [loading, setLoading] = useState(true);
@@ -181,141 +318,4 @@ function FieldDetailView({ field }: {field: FieldAnalysis}) {
       </section>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '1400px',
-    margin: '0 auto',
-    padding: '20px',
-  },
-  title: {
-    fontSize: '2.5rem',
-    marginBottom: '10px',
-    textAlign: 'center' as const,
-  },
-  subtitle: {
-    textAlign: 'center' as const,
-    color: '#666',
-    marginBottom: '40px',
-    fontSize: '1.1rem',
-  },
-  layout: {
-    display: 'grid',
-    gridTemplateColumns: '300px 1fr',
-    gap: '30px',
-  },
-  sidebar: {
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    height: 'fit-content',
-    position: 'sticky' as const,
-    top: '20px',
-  },
-  sidebarTitle: {
-    marginBottom: '15px',
-    fontSize: '1.2rem',
-    color: '#333',
-  },
-  fieldButton: {
-    padding: '12px 15px',
-    marginBottom: '8px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    fontSize: '0.95rem',
-  },
-  fieldButtonActive: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    fontWeight: 'bold' as const,
-  },
-  content: {
-    minHeight: '500px',
-  },
-  placeholder: {
-    backgroundColor: 'white',
-    padding: '60px',
-    borderRadius: '8px',
-    textAlign: 'center' as const,
-    color: '#999',
-    fontSize: '1.2rem',
-  },
-  detailContainer: {
-    backgroundColor: 'white',
-    padding: '30px',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-  },
-  detailTitle: {
-    fontSize: '2rem',
-    marginBottom: '30px',
-    color: '#333',
-    borderBottom: '3px solid #007bff',
-    paddingBottom: '15px',
-  },
-  section: {
-    marginBottom: '40px',
-  },
-  sectionTitle: {
-    fontSize: '1.4rem',
-    marginBottom: '20px',
-    color: '#555',
-  },
-  metricsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '15px',
-  },
-  metricCard: {
-    padding: '20px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '8px',
-    textAlign: 'center' as const,
-  },
-  metricLabel: {
-    fontSize: '0.9rem',
-    color: '#666',
-    marginBottom: '10px',
-  },
-  metricValue: {
-    fontSize: '1.8rem',
-    fontWeight: 'bold' as const,
-    color: '#333',
-    marginBottom: '8px',
-  },
-  metricComparison: {
-    marginTop: '8px',
-  },
-  metricSubtext: {
-    fontSize: '0.85rem',
-    color: '#888',
-    marginTop: '5px',
-  },
-  badge: {
-    display: 'inline-block',
-    padding: '4px 10px',
-    borderRadius: '12px',
-    fontSize: '0.8rem',
-    fontWeight: 'bold' as const,
-  },
-  enrollmentCard: {
-    padding: '30px',
-    backgroundColor: '#e7f3ff',
-    borderRadius: '8px',
-    textAlign: 'center' as const,
-  },
-  enrollmentValue: {
-    fontSize: '3rem',
-    fontWeight: 'bold' as const,
-    color: '#007bff',
-  },
-  enrollmentLabel: {
-    fontSize: '1.2rem',
-    color: '#666',
-    marginTop: '10px',
-  },
 };

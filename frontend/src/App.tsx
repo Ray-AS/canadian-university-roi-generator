@@ -6,6 +6,7 @@ import FieldsPage from './components/FieldsPage'
 import FieldDetailPage from './components/FieldDetailPage'
 import RankingsPage from './components/RankingsPage'
 import AnalysisPage from './components/AnalysisPage'
+import MethodologyPage from './components/MethodologyPage'
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="fields/:fieldName" element={<FieldDetailPage />} />
           <Route path="rankings" element={<RankingsPage />} />
           <Route path="analysis" element={<AnalysisPage />} />
-          {/* <Route path="methodology" element={<MethodologyPage />} /> */}
+          <Route path="methodology" element={<MethodologyPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
