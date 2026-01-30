@@ -4,14 +4,14 @@ A full-stack application analyzing the Return on Investment (ROI) for different 
 
 ## Features
 
-### Data Analysis & Visualization
+### Data Analysis
 
 - Python-based ETL pipeline processing Statistics Canada data
 - Automated report generation with visualizations
 - ROI calculations with multiple methodologies
 - Inflation-adjusted earnings data (2024 CAD)
 
-### Backend API (.NET 10)
+### Backend (.NET 10)
 
 - RESTful API with comprehensive endpoints
 - Entity Framework Core with SQLite support
@@ -19,7 +19,7 @@ A full-stack application analyzing the Return on Investment (ROI) for different 
 - JSON-based reporting system
 - Database-backed field data
 
-### Frontend Application (React + TypeScript)
+### Frontend (React + TypeScript)
 
 - Modern, responsive UI with React Router
 - Interactive data tables with sorting capabilities
