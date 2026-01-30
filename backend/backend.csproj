@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models/" />
     <Folder Include="Models/Rankings/" />
     <Folder Include="Models/Summary/" />
   </ItemGroup>
