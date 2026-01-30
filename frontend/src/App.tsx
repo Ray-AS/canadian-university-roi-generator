@@ -7,6 +7,7 @@ import FieldDetailPage from './components/FieldDetailPage'
 import RankingsPage from './components/RankingsPage'
 import AnalysisPage from './components/AnalysisPage'
 import MethodologyPage from './components/MethodologyPage'
+import PolicyRecommendationsPage from './components/PolicyRecommendationsPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="rankings" element={<RankingsPage />} />
           <Route path="analysis" element={<AnalysisPage />} />
           <Route path="methodology" element={<MethodologyPage />} />
+          <Route path="recommendations" element={<PolicyRecommendationsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

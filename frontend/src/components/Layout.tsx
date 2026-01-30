@@ -62,6 +62,7 @@ export default function Layout() {
             <Link to="/rankings" style={styles.navLink}>Rankings</Link>
             <Link to="/analysis" style={styles.navLink}>Analysis</Link>
             <Link to="/methodology" style={styles.navLink}>Methodology</Link>
+            <Link to="/recommendations" style={styles.navLink}>Policy</Link>
           </div>
         </div>
       </nav>
