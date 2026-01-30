@@ -61,6 +61,8 @@ export default function Layout() {
             <Link to="/fields" style={styles.navLink}>Fields</Link>
             <Link to="/rankings" style={styles.navLink}>Rankings</Link>
             <Link to="/analysis" style={styles.navLink}>Analysis</Link>
+            <Link to="/visualizations" style={styles.navLink}>Visualizations</Link>
+            <Link to="/table" style={styles.navLink}>Table</Link>
             <Link to="/methodology" style={styles.navLink}>Methodology</Link>
             <Link to="/recommendations" style={styles.navLink}>Policy</Link>
           </div>

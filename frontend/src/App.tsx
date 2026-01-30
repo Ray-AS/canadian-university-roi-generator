@@ -8,6 +8,8 @@ import RankingsPage from './components/RankingsPage'
 import AnalysisPage from './components/AnalysisPage'
 import MethodologyPage from './components/MethodologyPage'
 import PolicyRecommendationsPage from './components/PolicyRecommendationsPage'
+import VisualizationsPage from './components/VisualizationsPage'
+import TablePage from './components/TablePage'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="fields/:fieldName" element={<FieldDetailPage />} />
           <Route path="rankings" element={<RankingsPage />} />
           <Route path="analysis" element={<AnalysisPage />} />
+          <Route path="visualizations" element={<VisualizationsPage />} />
+          <Route path="table" element={<TablePage />} />
           <Route path="methodology" element={<MethodologyPage />} />
           <Route path="recommendations" element={<PolicyRecommendationsPage />} />
         </Route>
