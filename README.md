@@ -84,6 +84,9 @@ cd canadian-university-roi-generator
 #### 2. Set Up Python Environment
 
 ```bash
+# Move to directory containing python files
+cd services
+
 # Create virtual environment
 python -m venv venv
 
