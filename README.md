@@ -2,6 +2,8 @@
 
 A full-stack application analyzing the Return on Investment (ROI) for different fields of study at Canadian universities. This project combines data analysis, backend API development, and a modern frontend interface to provide insights into educational outcomes and student debt.
 
+![example of app](assets/example3.gif)
+
 ## Features
 
 ### Data Analysis
